@@ -1,0 +1,439 @@
+<!--
+  ============================================================
+  DIE KLASSEN-BOX  –  Sammelbox & Quiz mit mehreren TÖPFEN (Runden)
+  ============================================================
+  Für witzige Situationen ODER nette Kommentare über Mitschüler u.v.m.
+  LÄUFT AUF: GitHub Pages, jedem Webhost, oder lokal geöffnet.
+  Backend: Firebase Firestore (Projekt: quiz-856cb)
+    - Sammlung "toepfe"      = die Töpfe/Runden
+    - Sammlung "situationen" = die Einsendungen
+        Felder: text, subject (Um wen geht es), sender (Absender), topfId, ts
+
+  LEHRER-PIN: Zeile mit LEHRER_PIN ändern (Standard "2741").
+
+  ABLAUF:
+    1) Lehrer-Ansicht öffnen, oben Töpfe anlegen (z. B. "Komplimente").
+    2) Link/QR an die Klasse – Schüler wählen Topf und reichen ein.
+    3) Pro Topf "Diese Runde spielen".
+
+  Firestore wurde im Testmodus angelegt (~30 Tage offen).
+  ============================================================
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Die Klassen-Box</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#221A3A; --ink-2:#2E2350; --ink-3:#3A2C63;
+    --paper:#FBF6EC; --paper-line:#E9DFC9;
+    --amber:#FFC94D; --coral:#FF6B5E; --teal:#5BC8B0;
+    --text-light:#F3ECFF; --text-muted:#B9AEDC;
+    --text-dark:#2A2233; --text-dark-muted:#6B5F73;
+    --radius:18px; --shadow:0 14px 40px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Hanken Grotesk",system-ui,sans-serif;
+    background:
+      radial-gradient(1100px 520px at 50% -180px, rgba(255,201,77,.16), transparent 60%),
+      radial-gradient(700px 500px at 110% 120%, rgba(255,107,94,.12), transparent 55%),
+      var(--ink);
+    color:var(--text-light); min-height:100vh;
+    -webkit-font-smoothing:antialiased; line-height:1.5;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:28px 20px 64px}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);font-weight:600;margin:0 0 6px}
+  h1{font-family:"Fredoka",sans-serif;font-weight:600;font-size:clamp(34px,8vw,52px);line-height:1.02;margin:0;color:var(--text-light);letter-spacing:-.01em}
+  h1 .b{color:var(--amber)}
+  .lead{color:var(--text-muted);margin:14px 0 26px;font-size:16px;max-width:48ch}
+
+  .slip{background:var(--paper);color:var(--text-dark);border-radius:14px;padding:20px;box-shadow:var(--shadow)}
+  label{display:block;font-weight:600;font-size:14px;margin:0 0 7px;color:var(--text-dark)}
+  .hint{font-size:13px;color:var(--text-dark-muted);font-weight:400;margin:6px 0 0}
+  textarea,input[type=text]{width:100%;border:none;background:transparent;font-family:inherit;font-size:17px;color:var(--text-dark);resize:none;padding:2px 0}
+  textarea{min-height:120px;line-height:32px}
+  textarea:focus,input[type=text]:focus{outline:none}
+  .field{margin-bottom:4px}
+  .two{display:flex;gap:18px}
+  .two .field{flex:1}
+  .divider{height:1px;background:var(--paper-line);margin:16px 0}
+  .topf-select{width:100%;font-family:inherit;font-size:17px;font-weight:600;color:var(--text-dark);background:#fff;border:2px solid var(--paper-line);border-radius:10px;padding:11px 12px}
+  .topf-select:focus{outline:none;border-color:var(--amber)}
+
+  .btn{font-family:"Fredoka",sans-serif;font-weight:600;font-size:18px;border:none;border-radius:14px;padding:15px 22px;cursor:pointer;transition:transform .12s ease,filter .12s ease;display:inline-flex;align-items:center;gap:9px}
+  .btn:active{transform:translateY(1px)}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn-primary{background:var(--amber);color:#3a2a00}
+  .btn-primary:hover:not(:disabled){filter:brightness(1.05)}
+  .btn-coral{background:var(--coral);color:#fff}
+  .btn-ghost{background:rgba(255,255,255,.08);color:var(--text-light);font-family:"Hanken Grotesk";font-weight:600;font-size:15px}
+  .btn-ghost:hover:not(:disabled){background:rgba(255,255,255,.14)}
+  .btn-block{width:100%;justify-content:center;margin-top:18px}
+  .btn:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+  a.linklike{color:var(--text-muted);text-decoration:underline;cursor:pointer;font-size:13px}
+  a.linklike:hover{color:var(--text-light)}
+
+  .boxwrap{margin-top:40px;text-align:center}
+  .countlbl{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px}
+  .countnum{font-family:"Fredoka";font-size:40px;font-weight:700;color:var(--amber);line-height:1}
+  .box{position:relative;width:200px;height:74px;margin:14px auto 0;background:linear-gradient(var(--ink-3),var(--ink-2));border-radius:10px 10px 12px 12px;box-shadow:inset 0 2px 0 rgba(255,255,255,.06),var(--shadow)}
+  .box:before{content:"";position:absolute;inset:0 0 auto;height:14px;border-radius:10px 10px 0 0;background:rgba(0,0,0,.18)}
+  .box .lid{position:absolute;top:-7px;left:-6px;right:-6px;height:16px;background:var(--ink-3);border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,.3)}
+  .slips-peek{position:absolute;top:-18px;left:0;right:0;height:30px;pointer-events:none}
+  .pslip{position:absolute;bottom:0;width:26px;height:34px;background:var(--paper);border-radius:3px;box-shadow:0 3px 8px rgba(0,0,0,.25)}
+
+  .panel{background:var(--ink-2);border-radius:var(--radius);padding:30px 24px;box-shadow:var(--shadow);text-align:center}
+  .panel h2{font-family:"Fredoka";font-weight:600;font-size:30px;margin:6px 0 8px;color:var(--text-light)}
+  .panel p{color:var(--text-muted);margin:0 0 22px}
+  .check{width:64px;height:64px;border-radius:50%;background:var(--teal);margin:0 auto 8px;display:grid;place-items:center}
+  .check svg{width:32px;height:32px;stroke:#0e2f28;stroke-width:3.4;fill:none}
+  .notice{background:var(--ink-2);border-radius:14px;padding:22px;text-align:center;color:var(--text-muted)}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+  .pill{font-size:13px;background:rgba(255,255,255,.08);padding:6px 12px;border-radius:999px;color:var(--text-muted)}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .tab{font-family:"Hanken Grotesk";font-weight:600;font-size:14px;border:none;border-radius:999px;padding:9px 15px;cursor:pointer;background:rgba(255,255,255,.08);color:var(--text-light);display:inline-flex;align-items:center}
+  .tab.active{background:var(--amber);color:#3a2a00}
+  .tab .c{margin-left:7px;opacity:.7;font-weight:400}
+  .tab.active .c{opacity:.6}
+  .addtopf{display:flex;gap:8px;margin-bottom:18px}
+  .addtopf input{flex:1;background:var(--ink-2);border:1px solid rgba(255,255,255,.14);border-radius:10px;color:var(--text-light);padding:11px 12px;font-family:inherit;font-size:15px}
+  .addtopf input::placeholder{color:var(--text-muted)}
+  .row-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .cur-label{font-size:13px;color:var(--text-muted);margin-bottom:10px}
+  .tslip{background:var(--paper);color:var(--text-dark);border-radius:12px;padding:16px 16px 14px;margin-bottom:12px;box-shadow:0 8px 22px rgba(0,0,0,.25)}
+  .tslip .txt{font-size:16px;line-height:1.45;white-space:pre-wrap;word-break:break-word}
+  .tslip .meta{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:10px}
+  .tags{display:flex;gap:6px;flex-wrap:wrap}
+  .tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px}
+  .tag-name{background:rgba(255,201,77,.25);color:#7a5a00}
+  .tag-from{background:rgba(91,200,176,.22);color:#1c5247}
+  .tag-anon{background:rgba(0,0,0,.06);color:var(--text-dark-muted)}
+  .del{background:none;border:none;color:var(--coral);font-weight:600;font-size:13px;cursor:pointer;padding:4px 6px;white-space:nowrap}
+  .del:hover{text-decoration:underline}
+  .empty{text-align:center;color:var(--text-muted);padding:36px 10px}
+
+  .quizbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:10px}
+  .progress{font-family:"Fredoka";font-weight:600;color:var(--amber)}
+  .qcard{background:var(--paper);color:var(--text-dark);border-radius:18px;padding:34px 26px;box-shadow:var(--shadow);min-height:240px;display:flex;flex-direction:column;justify-content:center}
+  .qlabel{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);font-weight:600;margin-bottom:14px}
+  .qtext{font-family:"Fredoka";font-weight:500;font-size:clamp(22px,5vw,30px);line-height:1.25}
+  .reveal{margin-top:22px;padding-top:18px;border-top:1px dashed var(--paper-line)}
+  .rev-row{margin-bottom:10px}
+  .rev-row:last-child{margin-bottom:0}
+  .rev-cap{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dark-muted);margin-bottom:2px}
+  .rev-val{font-family:"Fredoka";font-weight:600;font-size:23px;color:var(--text-dark)}
+  .rev-val.anon{color:var(--text-dark-muted)}
+  .qnav{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .qnav .btn{flex:1;min-width:120px;justify-content:center}
+
+  .hidden{display:none !important}
+  .footer-teacher{margin-top:34px;text-align:center}
+  .banner{background:var(--coral);color:#fff;border-radius:12px;padding:12px 16px;margin-bottom:18px;font-size:14px;font-weight:600;text-align:center}
+
+  @keyframes drop{0%{transform:translateY(-30px) rotate(-4deg);opacity:0}35%{opacity:1}100%{transform:translateY(0) rotate(-2deg);opacity:1}}
+  .animate-drop{animation:drop .5s cubic-bezier(.2,.8,.3,1) both}
+  @media (prefers-reduced-motion:reduce){.animate-drop{animation:none}.btn{transition:none}}
+  @media(max-width:480px){.wrap{padding:20px 16px 56px}.two{flex-direction:column;gap:0}}
+</style>
+
+<div class="wrap">
+
+  <div id="conn-banner" class="banner hidden"></div>
+
+  <!-- ============ SCREEN: SUBMIT ============ -->
+  <section id="screen-submit">
+    <p class="eyebrow">Sammelbox der Klasse</p>
+    <h1>Die <span class="b">Klassen-Box</span></h1>
+    <p class="lead">Wähle eine Runde und schick deinen Beitrag ab – eine witzige Situation, ein nettes Kompliment, was auch immer in der Runde gesucht ist.</p>
+
+    <div id="no-topf-note" class="notice hidden">Die Box wird gerade vorbereitet – gleich geht's los. Schau in einem Moment nochmal vorbei.</div>
+
+    <div id="submit-card" class="slip">
+      <div class="field">
+        <label for="topf-select">Für welche Runde?</label>
+        <select id="topf-select" class="topf-select"></select>
+      </div>
+      <div class="divider"></div>
+      <div class="field">
+        <label for="text">Dein Beitrag</label>
+        <textarea id="text" maxlength="600" placeholder="Witzige Situation, nettes Kompliment, …"></textarea>
+      </div>
+      <div class="divider"></div>
+      <div class="two">
+        <div class="field">
+          <label for="subject">Um wen geht es? (optional)</label>
+          <input type="text" id="subject" maxlength="40" placeholder="z. B. ein Name">
+        </div>
+        <div class="field">
+          <label for="sender">Absender (optional)</label>
+          <input type="text" id="sender" maxlength="40" placeholder="von wem?">
+        </div>
+      </div>
+      <p class="hint">Beide Felder kannst du leer lassen – dann bleibt es anonym.</p>
+    </div>
+
+    <button class="btn btn-primary btn-block" id="send">Abschicken</button>
+
+    <div class="boxwrap">
+      <div class="countlbl">Bisher in dieser Runde</div>
+      <div class="countnum" id="count">–</div>
+      <div class="box"><div class="slips-peek" id="peek"></div><div class="lid"></div></div>
+    </div>
+
+    <div class="footer-teacher"><a class="linklike" id="to-teacher">Lehrer-Ansicht</a></div>
+  </section>
+
+  <!-- ============ SCREEN: THANKS ============ -->
+  <section id="screen-thanks" class="hidden">
+    <div class="panel">
+      <div class="check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+      <h2>Drin – danke!</h2>
+      <p>Dein Beitrag ist im Topf gelandet.</p>
+      <button class="btn btn-primary" id="again">Noch einen abschicken</button>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN: PIN ============ -->
+  <section id="screen-pin" class="hidden">
+    <div class="panel">
+      <h2 style="font-size:24px;margin-top:0">Lehrer-Ansicht</h2>
+      <p>Bitte PIN eingeben.</p>
+      <input type="text" id="pin" inputmode="numeric" maxlength="8"
+             style="text-align:center;font-size:24px;letter-spacing:.3em;background:var(--paper);color:var(--text-dark);border-radius:12px;padding:12px;width:160px;font-family:Fredoka">
+      <p id="pin-err" class="hint hidden" style="color:var(--coral)">PIN stimmt nicht.</p>
+      <div style="margin-top:18px;display:flex;gap:10px;justify-content:center">
+        <button class="btn btn-ghost" id="pin-cancel">Zurück</button>
+        <button class="btn btn-primary" id="pin-ok">Öffnen</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN: TEACHER ============ -->
+  <section id="screen-teacher" class="hidden">
+    <div class="topbar">
+      <h1 style="font-size:32px">Einsendungen</h1>
+      <span class="pill" id="tcount">0</span>
+    </div>
+
+    <div class="tabs" id="topf-tabs"></div>
+    <div class="addtopf">
+      <input type="text" id="new-topf" maxlength="40" placeholder="Neuer Topf, z. B. „Komplimente"">
+      <button class="btn btn-ghost" id="add-topf">+ Topf</button>
+    </div>
+
+    <div class="cur-label" id="cur-topf-label"></div>
+    <div class="row-actions">
+      <button class="btn btn-primary" id="start-quiz">Diese Runde spielen</button>
+      <button class="btn btn-ghost" id="del-topf">Topf löschen</button>
+      <button class="btn btn-ghost" id="back-submit">Zur Einreichung</button>
+    </div>
+    <div id="list"></div>
+  </section>
+
+  <!-- ============ SCREEN: QUIZ ============ -->
+  <section id="screen-quiz" class="hidden">
+    <div class="quizbar">
+      <span class="progress" id="qprog">1 / 1</span>
+      <button class="btn btn-ghost" id="quiz-end">Beenden</button>
+    </div>
+    <div class="qcard">
+      <div class="qlabel" id="qlabel">Runde</div>
+      <div class="qtext" id="qtext">…</div>
+      <div class="reveal hidden" id="qreveal">
+        <div class="rev-row hidden" id="rev-subject"><div class="rev-cap">Um wen es geht</div><div class="rev-val" id="qsubject"></div></div>
+        <div class="rev-row hidden" id="rev-sender"><div class="rev-cap">Absender</div><div class="rev-val" id="qsender"></div></div>
+        <div class="rev-row hidden" id="rev-anon"><div class="rev-val anon">Anonym eingereicht</div></div>
+      </div>
+    </div>
+    <div class="qnav">
+      <button class="btn btn-ghost" id="q-prev">Zurück</button>
+      <button class="btn btn-coral" id="q-reveal-btn">Auflösen</button>
+      <button class="btn btn-primary" id="q-next">Weiter</button>
+    </div>
+    <div style="text-align:center;margin-top:14px"><a class="linklike" id="q-shuffle">Reihenfolge mischen</a></div>
+  </section>
+
+</div>
+
+<!-- Firebase (compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+  // ====== EINSTELLUNG ======
+  const LEHRER_PIN = "2741";   // <-- hier deine PIN ändern
+  const firebaseConfig = {
+    apiKey: "AIzaSyDibdfENOTS0xg06WNQ9i6ieHHLAkKoR7U",
+    authDomain: "quiz-856cb.firebaseapp.com",
+    projectId: "quiz-856cb",
+    storageBucket: "quiz-856cb.firebasestorage.app",
+    messagingSenderId: "33724472179",
+    appId: "1:33724472179:web:fa9f0d6be7f2d7f805c306"
+  };
+  // =========================
+
+  const $ = id => document.getElementById(id);
+  const screens = ["screen-submit","screen-thanks","screen-pin","screen-teacher","screen-quiz"];
+  function show(id){ screens.forEach(s=>$(s).classList.toggle("hidden", s!==id)); }
+  function banner(msg){ const b=$("conn-banner"); b.textContent=msg; b.classList.remove("hidden"); }
+
+  // ---------- Firebase ----------
+  let col=null, toepfeCol=null;
+  try{
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    col = db.collection("situationen");
+    toepfeCol = db.collection("toepfe");
+  }catch(e){ banner("Verbindung zur Datenbank fehlgeschlagen. Internet prüfen und Seite neu laden."); }
+
+  // ---------- State ----------
+  let toepfe=[], current=[], selStudent=null, selTeacher=null;
+  const subjectOf = s => (s.subject || s.name || "").trim();  // name = Rückwärtskompatibilität
+  const senderOf  = s => (s.sender || "").trim();
+  function isOrphan(s){ return !s.topfId || !toepfe.some(t=>t.key===s.topfId); }
+  function situationsOf(key){ return key==="__none" ? current.filter(isOrphan) : current.filter(s=>s.topfId===key); }
+  function topfName(key){ if(key==="__none") return "Ohne Topf"; const t=toepfe.find(x=>x.key===key); return t?t.name:""; }
+
+  // ---------- Listener ----------
+  function startListeners(){
+    if(!col) return;
+    const errcb = err=> banner("Daten konnten nicht geladen werden: " + err.message);
+    toepfeCol.orderBy("ts").onSnapshot(snap=>{ toepfe = snap.docs.map(d=>Object.assign({key:d.id}, d.data())); onData(); }, errcb);
+    col.orderBy("ts").onSnapshot(snap=>{ current = snap.docs.map(d=>Object.assign({key:d.id}, d.data())); onData(); }, errcb);
+  }
+  function onData(){ renderStudentTopfs(); updateCount(); renderTeacher(); }
+
+  // ---------- Student ----------
+  function renderStudentTopfs(){
+    const sel=$("topf-select");
+    if(toepfe.length===0){ $("no-topf-note").classList.remove("hidden"); $("submit-card").classList.add("hidden"); $("send").disabled=true; return; }
+    $("no-topf-note").classList.add("hidden"); $("submit-card").classList.remove("hidden"); $("send").disabled=false;
+    const prev=selStudent; sel.innerHTML="";
+    toepfe.forEach(t=>{ const o=document.createElement("option"); o.value=t.key; o.textContent=t.name; sel.appendChild(o); });
+    if(prev && toepfe.some(t=>t.key===prev)) sel.value=prev; else { selStudent=toepfe[0].key; sel.value=selStudent; }
+  }
+  $("topf-select").addEventListener("change", e=>{ selStudent=e.target.value; updateCount(); });
+
+  function updateCount(){
+    const n=(toepfe.length && selStudent)?situationsOf(selStudent).length:0;
+    $("count").textContent = toepfe.length ? n : "–";
+    const peek=$("peek"); peek.innerHTML="";
+    const shown=Math.min(n,9);
+    for(let i=0;i<shown;i++){ const d=document.createElement("div"); d.className="pslip"; const total=Math.max(shown,1);
+      d.style.left=(20+i*(160/Math.max(total-1,1)))+"px"; d.style.transform="rotate("+(((i%2)?1:-1)*(4+(i%3)*3))+"deg)"; d.style.bottom=(2+(i%2)*4)+"px"; peek.appendChild(d); }
+  }
+
+  $("send").addEventListener("click", async ()=>{
+    const text=$("text").value.trim();
+    if(!text){ $("text").focus(); return; }
+    if(!selStudent){ alert("Bitte oben eine Runde wählen."); return; }
+    if(!col){ alert("Keine Datenbankverbindung – bitte Seite neu laden."); return; }
+    const subject=$("subject").value.trim(), sender=$("sender").value.trim();
+    $("send").disabled=true; $("send").textContent="Wird abgeschickt…";
+    try{
+      await col.add({ text, subject, sender, topfId: selStudent, ts: Date.now() });
+      $("text").value=""; $("subject").value=""; $("sender").value="";
+      show("screen-thanks");
+      const p=$("screen-thanks").querySelector(".panel"); p.classList.add("animate-drop"); setTimeout(()=>p.classList.remove("animate-drop"),600);
+    }catch(e){ alert("Hat nicht geklappt: "+e.message); }
+    finally{ $("send").disabled=false; $("send").textContent="Abschicken"; }
+  });
+  $("again").addEventListener("click", ()=> show("screen-submit"));
+
+  // ---------- Teacher gate ----------
+  $("to-teacher").addEventListener("click", ()=>{ $("pin").value=""; $("pin-err").classList.add("hidden"); show("screen-pin"); $("pin").focus(); });
+  $("pin-cancel").addEventListener("click", ()=> show("screen-submit"));
+  $("pin-ok").addEventListener("click", tryPin);
+  $("pin").addEventListener("keydown", e=>{ if(e.key==="Enter") tryPin(); });
+  function tryPin(){ if($("pin").value.trim()===LEHRER_PIN){ show("screen-teacher"); renderTeacher(); } else { $("pin-err").classList.remove("hidden"); } }
+  $("back-submit").addEventListener("click", ()=> show("screen-submit"));
+
+  // ---------- Töpfe verwalten ----------
+  $("add-topf").addEventListener("click", async ()=>{
+    const name=$("new-topf").value.trim(); if(!name) return;
+    try{ const ref=await toepfeCol.add({name, ts: Date.now()}); $("new-topf").value=""; selTeacher=ref.id; }
+    catch(e){ alert("Topf anlegen fehlgeschlagen: "+e.message); }
+  });
+  $("new-topf").addEventListener("keydown", e=>{ if(e.key==="Enter") $("add-topf").click(); });
+
+  $("del-topf").addEventListener("click", async ()=>{
+    if(!selTeacher) return;
+    const arr=situationsOf(selTeacher), nm=topfName(selTeacher);
+    if(!confirm('Topf „'+nm+'" mit '+arr.length+' Einsendung(en) löschen? Das lässt sich nicht rückgängig machen.')) return;
+    try{ for(const s of arr){ await col.doc(s.key).delete(); } if(selTeacher!=="__none") await toepfeCol.doc(selTeacher).delete(); selTeacher=null; }
+    catch(e){ alert("Löschen fehlgeschlagen: "+e.message); }
+  });
+
+  function renderTeacher(){
+    const keys=toepfe.map(t=>t.key); if(current.some(isOrphan)) keys.push("__none");
+    const tabs=$("topf-tabs");
+    if(keys.length===0){ tabs.innerHTML=""; $("cur-topf-label").textContent=""; $("tcount").textContent="0";
+      $("list").innerHTML='<div class="empty">Noch kein Topf.<br>Lege oben einen an (z. B. „Komplimente"), dann können die Schüler einsenden.</div>';
+      $("start-quiz").disabled=true; $("del-topf").disabled=true; return; }
+    if(!selTeacher || !keys.includes(selTeacher)) selTeacher=keys[0];
+    $("start-quiz").disabled=false; $("del-topf").disabled=false;
+    tabs.innerHTML="";
+    keys.forEach(k=>{ const b=document.createElement("button"); b.className="tab"+(k===selTeacher?" active":"");
+      b.appendChild(document.createTextNode(topfName(k)));
+      const c=document.createElement("span"); c.className="c"; c.textContent=situationsOf(k).length; b.appendChild(c);
+      b.addEventListener("click", ()=>{ selTeacher=k; renderTeacher(); }); tabs.appendChild(b); });
+    const arr=situationsOf(selTeacher);
+    $("tcount").textContent = arr.length + (arr.length===1?" Einsendung":" Einsendungen");
+    $("cur-topf-label").textContent = 'Topf: '+topfName(selTeacher);
+    if(arr.length===0){ $("list").innerHTML='<div class="empty">In dieser Runde noch nichts.</div>'; return; }
+    $("list").innerHTML="";
+    arr.forEach(s=>{
+      const card=document.createElement("div"); card.className="tslip";
+      const txt=document.createElement("div"); txt.className="txt"; txt.textContent=s.text;
+      const meta=document.createElement("div"); meta.className="meta";
+      const tags=document.createElement("div"); tags.className="tags";
+      const subj=subjectOf(s), snd=senderOf(s);
+      if(subj){ const t=document.createElement("span"); t.className="tag tag-name"; t.textContent="Um: "+subj; tags.appendChild(t); }
+      if(snd){ const t=document.createElement("span"); t.className="tag tag-from"; t.textContent="von: "+snd; tags.appendChild(t); }
+      if(!subj && !snd){ const t=document.createElement("span"); t.className="tag tag-anon"; t.textContent="anonym"; tags.appendChild(t); }
+      const del=document.createElement("button"); del.className="del"; del.textContent="Löschen";
+      del.addEventListener("click", async ()=>{ if(!confirm("Diese Einsendung löschen?")) return; try{ await col.doc(s.key).delete(); }catch(e){ alert("Löschen fehlgeschlagen: "+e.message); } });
+      meta.appendChild(tags); meta.appendChild(del); card.appendChild(txt); card.appendChild(meta);
+      $("list").appendChild(card);
+    });
+  }
+
+  // ---------- Quiz ----------
+  let quiz=[], qi=0, quizName="";
+  function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  $("start-quiz").addEventListener("click", ()=>{
+    const arr=situationsOf(selTeacher);
+    if(arr.length===0){ alert("In dieser Runde sind noch keine Einsendungen."); return; }
+    quizName=topfName(selTeacher); quiz=shuffle(arr.slice()); qi=0; show("screen-quiz"); renderQuiz();
+  });
+  function renderQuiz(){
+    const s=quiz[qi];
+    $("qlabel").textContent="Runde: "+quizName;
+    $("qprog").textContent=(qi+1)+" / "+quiz.length;
+    $("qtext").textContent=s.text;
+    $("qreveal").classList.add("hidden");
+    $("rev-subject").classList.add("hidden"); $("rev-sender").classList.add("hidden"); $("rev-anon").classList.add("hidden");
+    $("q-reveal-btn").classList.remove("hidden");
+    const c=document.querySelector(".qcard"); c.classList.remove("animate-drop"); void c.offsetWidth; c.classList.add("animate-drop");
+  }
+  $("q-reveal-btn").addEventListener("click", ()=>{
+    const s=quiz[qi], subj=subjectOf(s), snd=senderOf(s);
+    if(subj){ $("qsubject").textContent=subj; $("rev-subject").classList.remove("hidden"); }
+    if(snd){ $("qsender").textContent=snd; $("rev-sender").classList.remove("hidden"); }
+    if(!subj && !snd){ $("rev-anon").classList.remove("hidden"); }
+    $("qreveal").classList.remove("hidden"); $("q-reveal-btn").classList.add("hidden");
+  });
+  $("q-next").addEventListener("click", ()=>{ qi=(qi+1)%quiz.length; renderQuiz(); });
+  $("q-prev").addEventListener("click", ()=>{ qi=(qi-1+quiz.length)%quiz.length; renderQuiz(); });
+  $("q-shuffle").addEventListener("click", ()=>{ quiz=shuffle(quiz); qi=0; renderQuiz(); });
+  $("quiz-end").addEventListener("click", ()=>{ show("screen-teacher"); renderTeacher(); });
+
+  // ---------- init ----------
+  startListeners();
+</script>
