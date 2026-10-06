@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-title" content="Schulrecht">
+<meta name="theme-color" content="#1f5f7a">
+<title>Schulleitungs-Fallbank Gymnasium MV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: eine Fallakte nach der anderen, schmale Lesespalte, Normleiste als Fußnote der Akte */
+:root{
+  --bg:#eef1f4; --paper:#ffffff; --ink:#18212b; --muted:#5b6774; --line:#d3dae2;
+  --accent:#1f5f7a; --accent-soft:#e1edf2;
+  --ok:#1d7a4c; --ok-soft:#e2f3ea; --bad:#b03a2e; --bad-soft:#f8e5e2;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11161c; --paper:#1a2129; --ink:#e6ebf0; --muted:#97a3b0; --line:#2c3640;
+  --accent:#6fb3cf; --accent-soft:#1d3240;
+  --ok:#5cc792; --ok-soft:#173326; --bad:#ec8576; --bad-soft:#3a1e1a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161c; --paper:#1a2129; --ink:#e6ebf0; --muted:#97a3b0; --line:#2c3640;
+  --accent:#6fb3cf; --accent-soft:#1d3240;
+  --ok:#5cc792; --ok-soft:#173326; --bad:#ec8576; --bad-soft:#3a1e1a; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55}
+.wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:28px 48px;display:flex;flex-direction:column;gap:20px}
+header h1{font-family:var(--f-display);font-weight:700;font-size:clamp(1.6rem,4vw,2.2rem);line-height:1.15;margin:0;text-wrap:balance}
+header p{margin:.4rem 0 0;color:var(--muted);max-width:60ch}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font:inherit;font-size:.9rem;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:.35rem .85rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.chip:focus-visible,.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.stats{margin-left:auto;font-family:var(--f-mono);font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.progress{height:4px;background:var(--line);border-radius:2px;overflow:hidden}
+.progress span{display:block;height:100%;background:var(--accent);transition:width .3s}
+.case{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--f-mono);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.meta b{color:var(--accent);font-weight:500}
+.sachverhalt{margin:0;max-width:65ch}
+.frage{font-family:var(--f-display);font-weight:600;font-size:1.15rem;margin:0;text-wrap:balance}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{font:inherit;text-align:left;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:.7rem .9rem;cursor:pointer;display:flex;gap:10px}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt .k{font-family:var(--f-mono);color:var(--muted);flex:none}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--ok-soft);border-color:var(--ok)}
+.opt.right .k{color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.opt.wrong .k{color:var(--bad)}
+.loesung{border-top:1px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.verdict{font-weight:600}
+.verdict.ok{color:var(--ok)} .verdict.no{color:var(--bad)}
+.loesung p{margin:0;max-width:65ch}
+.norm{font-family:var(--f-mono);font-size:.85rem;background:var(--accent-soft);color:var(--ink);border-radius:6px;padding:.55rem .75rem}
+.norm a{color:var(--accent)}
+.nav{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap}
+.btn{font:inherit;font-weight:600;border-radius:8px;padding:.6rem 1.1rem;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--paper)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.4;cursor:default}
+.end{text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+.end .score{font-family:var(--f-display);font-size:2.6rem;font-weight:700;color:var(--accent)}
+footer{font-size:.85rem;color:var(--muted);max-width:65ch}
+.savebox{display:flex;flex-direction:column;gap:6px;border-block:1px solid var(--line);padding-block:12px}
+.totals{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.92rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.totals b{color:var(--ink);font-family:var(--f-mono);font-weight:500}
+.totals .ok-t b{color:var(--ok)} .totals .bad-t b{color:var(--bad)}
+.saverow{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;font-size:.85rem;color:var(--muted)}
+.link{font:inherit;background:none;border:0;padding:0;color:var(--accent);cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.link.danger{color:var(--bad)}
+.link:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.chip-err{border-color:var(--bad)}
+.chip-err[aria-pressed="true"]{background:var(--bad);border-color:var(--bad)}
+.badge{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.02em;text-transform:none;border:1px solid var(--line);border-radius:999px;padding:.05rem .5rem}
+.badge.b-ok{color:var(--ok);border-color:var(--ok)} .badge.b-bad{color:var(--bad);border-color:var(--bad)}
+@media (prefers-reduced-motion:reduce){.progress span{transition:none}}
+</style>
+<style>body{margin:0}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <h1>Schulleitungs-Fallbank Gymnasium MV</h1>
+    <p>Fälle aus dem Alltag einer Gymnasialleitung: Abitur und Prüfungsrecht, Leistungsbewertung, Aufsicht und Schulfahrten, Dienstrecht, Gremien und Ordnungsmaßnahmen. Entscheiden Sie, wie die Schulleitung korrekt handelt, und prüfen Sie die Lösung an der Norm.</p>
+  </header>
+
+  <section class="savebox" aria-label="Ihr Lernstand">
+    <div class="totals" id="saveTotals"></div>
+    <div class="saverow"><span id="savenote" class="savenote"></span>
+      <button class="link" type="button" id="resetBtn">Lernstand zurücksetzen</button>
+      <span id="resetConfirm" hidden>Wirklich alle gespeicherten Antworten löschen? <button class="link danger" type="button" id="resetYes">Ja, löschen</button> <button class="link" type="button" id="resetNo">Abbrechen</button></span>
+    </div>
+  </section>
+
+  <div class="bar" id="filters" role="group" aria-label="Themenfilter"></div>
+  <div class="progress" aria-hidden="true"><span id="prog" style="width:0"></span></div>
+
+  <main id="stage"></main>
+
+  <footer>Trainingshilfe, keine Rechtsberatung. Grundlagen: SchulG M-V, APVO M-V (19.02.2019), LeistBewVO M-V (in Kraft 01.08.2026), VV Schulwanderungen und Schulfahrten, VV personalrechtliche Befugnisse und Stundenkonten (2024), Beamtenstatusgesetz; geprüft Oktober 2026. Vor echten Entscheidungen den aktuellen Gesetzestext und einschlägige Verwaltungsvorschriften prüfen.</footer>
+</div>
+
+<script>
+const SCHULG = n => "https://www.anwalt24.de/gesetze/schulg_m_v-1/" + n;
+const APVO = "https://www.regierung-mv.de/serviceassistent/download?id=1610365";
+const LBV = "https://www.regierung-mv.de/serviceassistent/download?id=1690073";
+const VVF = "https://www.bildung-mv.de/export/sites/bildungsserver/.galleries/dokumente/schule/Klassenfahrten_Schulwanderungen_Verwaltungsvorschrift-mit-Textaenderungen.pdf";
+const PERS = "https://www.regierung-mv.de/serviceassistent/download?id=1671033";
+const BEAMT = n => "https://www.gesetze-im-internet.de/beamtstg/__" + n + ".html";
+const CASES = [
+ {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"In einer Mathematikklausur der Qualifikationsphase entdeckt die Aufsicht bei einer Schülerin ein Smartphone mit geöffnetem KI-Chat. Die Kollegin fragt Sie, was jetzt passiert.",
+  q:"Wer entscheidet über die Folgen, und welche Möglichkeiten bestehen?",
+  o:["Die Schulleitung entscheidet; zwingend Note ungenügend","Die Lehrkraft entscheidet: Note ungenügend, Anordnung der Wiederholung oder Fortsetzung mit teilweiser oder ganzer Bewertung","Die Prüfungskommission entscheidet","Die Teilkonferenz entscheidet über eine Ordnungsmaßnahme, die Klausur bleibt unberührt"],
+  a:1, e:"Bei Täuschung oder Täuschungsversuch in einer Leistungsermittlung der Oberstufe entscheidet die Lehrkraft zwischen drei Folgen: ungenügend, Wiederholung oder Fortsetzung mit (Teil-)Bewertung. Als Schulleitung beraten Sie und achten auf einheitliche Handhabung im Kollegium. Eine Ordnungsmaßnahme ist davon getrennt zu prüfen.",
+  r:"§ 23 APVO M-V"},
+ {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Ein Schüler aus Q1 erscheint zur angekündigten Physikklausur nicht und meldet sich auch danach nicht. Eine Entschuldigung liegt nicht vor.",
+  q:"Wie wird die Klausur bewertet?",
+  o:["Sie muss nachgeschrieben werden","Sie entfällt ersatzlos","Unentschuldigtes Versäumen wird wie Leistungsverweigerung behandelt: ungenügend","Die Kursnote wird ohne diese Klausur gebildet"],
+  a:2, e:"Wer eine angekündigte Leistungsermittlung unentschuldigt versäumt, wird wie bei Leistungsverweigerung behandelt; die Leistung gilt als ungenügend. Nur bei Gründen, die der Schüler nicht zu vertreten hat, ist Gelegenheit zum Nachholen oder zu einer komplexen Leistung zu geben.",
+  r:"§ 23 APVO M-V"},
+ {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Am Morgen der schriftlichen Abiturprüfung in Deutsch meldet sich eine Schülerin krank. Die Mutter kündigt ein Attest der Hausärztin an.",
+  q:"Was ist rechtlich gefordert?",
+  o:["Ein hausärztliches Attest innerhalb von drei Tagen genügt","Die Schülerin muss die Gründe unverzüglich mitteilen und glaubhaft machen; bei Erkrankung ist ein amtsärztliches Zeugnis vorzulegen; die Prüfungskommission regelt die Fortsetzung","Die Prüfung gilt als nicht bestanden","Die Fachlehrkraft legt einen Nachtermin fest"],
+  a:1, e:"Bei Nichtteilnahme an einem Prüfungsteil sind die Gründe unverzüglich mitzuteilen und glaubhaft zu machen. Bei Krankheit verlangt die Verordnung ein amtsärztliches Zeugnis. Hat der Prüfling die Gründe nicht zu vertreten, regelt die Prüfungskommission die Fortsetzung der Abiturprüfung.",
+  r:"§ 34 APVO M-V"},
+ {t:"Abitur & Prüfungsrecht", u:SCHULG("67"), l:"§ 67 SchulG", s:"In der schriftlichen Abiturprüfung Biologie wird bei einem Prüfling ein beschriebener Spickzettel gefunden, den er nachweislich benutzt hat.",
+  q:"Welche Rechtsfolge sieht das Schulgesetz vor?",
+  o:["Nur die Biologieprüfung wird mit 0 Punkten bewertet","Die gesamte Prüfung ist für nicht bestanden zu erklären; nur in leichteren Fällen ist die betroffene Prüfungsleistung zu wiederholen","Es folgt eine Ordnungsmaßnahme, die Prüfung bleibt gültig","Die Lehrkraft entscheidet frei wie bei einer Kursklausur"],
+  a:1, e:"Versucht ein Prüfling, das Ergebnis durch Täuschung zu beeinflussen, ist die gesamte Prüfung für nicht bestanden zu erklären. In leichteren Fällen ist die betroffene Prüfungsleistung zu wiederholen. Das ist strenger als die Regel für Kursklausuren.",
+  r:"§ 67 Abs. 3 SchulG M-V"},
+ {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Zur Vorbereitung des Abiturs wird die Prüfungskommission gebildet. Die Oberstufenkoordinatorin fragt, wer den Vorsitz hat und wie groß die Kommission ist.",
+  q:"Was gilt?",
+  o:["Vorsitz durch das Staatliche Schulamt, fünf Mitglieder","Vorsitz durch die Schulleitung, ihre Stellvertretung oder die Oberstufenkoordination; insgesamt drei Mitglieder; die Schulbehörde kann abweichend regeln","Vorsitz durch die dienstälteste Lehrkraft","Vorsitz durch die Tutorinnen und Tutoren des Jahrgangs"],
+  a:1, e:"Die Prüfungskommission besteht aus einem vorsitzenden und zwei weiteren Mitgliedern. Den Vorsitz führt die Schulleitung oder ihre Stellvertretung bzw. die Oberstufenkoordination, soweit die Schulbehörde nichts anderes regelt. Die Kommission legt den Ablauf fest, sichert die einheitliche Bewertung und entscheidet bei Verstößen.",
+  r:"§ 27 APVO M-V"},
+ {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Ein Schüler mit diagnostizierter Lese-Rechtschreib-Störung hatte im Unterricht der Q-Phase Nachteilsausgleich. Die Eltern fragen, wie das im Abitur läuft.",
+  q:"Wie ist das Verfahren?",
+  o:["Der Nachteilsausgleich gilt automatisch weiter","Antrag spätestens mit Abgabe der Prüfungsfächerwahl beim Vorsitz der Prüfungskommission; Entscheidung in Abstimmung mit der Schulbehörde","Die Fachlehrkraft entscheidet am Prüfungstag","Im Abitur gibt es keinen Nachteilsausgleich"],
+  a:1, e:"Der Antrag ist spätestens mit der Wahl der Prüfungsfächer beim vorsitzenden Mitglied der Prüfungskommission einzureichen. Es entscheidet in Abstimmung mit der Schulbehörde; bei vorübergehender Erkrankung allein. Voraussetzung ist ein Nachteilsausgleich bereits im Unterricht.",
+  r:"§ 33 APVO M-V"},
+ {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Für die mündlichen Abiturprüfungen planen Sie Räume und Personal. Ein neuer Kollege fragt nach Besetzung und Dauer.",
+  q:"Was ist der Regelfall?",
+  o:["Zwei Prüfer, 30 Minuten, Gruppenprüfung möglich","Drei Mitglieder (Fachprüfungsleitung, Prüfer, Protokoll); Einzelprüfung von in der Regel 20 Minuten in zwei Teilen","Prüfer allein mit Protokoll, 15 Minuten","Die gesamte Prüfungskommission, 45 Minuten"],
+  a:1, e:"Der Fachprüfungsausschuss für mündliche Prüfungen besteht in der Regel aus Fachprüfungsleitung, Prüferin oder Prüfer und Protokollführung. Die mündliche Prüfung ist eine Einzelprüfung, dauert in der Regel 20 Minuten und hat zwei Teile.",
+  r:"§§ 28, 38 APVO M-V"},
+ {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Eine Schülerin aus Q2 überlegt, sich nicht zur Abiturprüfung anzumelden, und hat keinen freiwilligen Rücktritt beantragt.",
+  q:"Welche Folge hat das?",
+  o:["Sie wiederholt automatisch Q2","Keine, sie kann im nächsten Jahr antreten","Die Abiturprüfung gilt als nicht bestanden","Sie erhält die Fachhochschulreife"],
+  a:2, e:"Wer sich nicht zur Abiturprüfung meldet und keinen freiwilligen Rücktritt nach § 3 Abs. 4 beantragt, nicht zugelassen ist oder bis zum Prüfungsbeginn zurücktritt, hat die Abiturprüfung nicht bestanden. Eine frühzeitige Beratung zum freiwilligen Rücktritt ist deshalb wichtig.",
+  r:"§ 29 i. V. m. § 3 Abs. 4 APVO M-V"},
+ {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Eine 18-jährige Schülerin aus Q2 hat eine Lehrkraft massiv beleidigt. Eine Ordnungsmaßnahme wird erwogen. Die Eltern verlangen, an der Anhörung teilzunehmen.",
+  q:"Wer ist anzuhören?",
+  o:["Schülerin und Eltern in jedem Fall","Die Schülerin; die Pflicht, Erziehungsberechtigte anzuhören, gilt nur bei Minderjährigen","Nur die Eltern","Niemand, bei Volljährigen entfällt die Anhörung"],
+  a:1, e:"Vor jeder Ordnungsmaßnahme ist die betroffene Schülerin zu hören, bei Minderjährigen auch die Erziehungsberechtigten. Die Schülerin kann eine zur Schule gehörende Vertrauensperson als Beistand beteiligen.",
+  r:"§ 60a Abs. 6 SchulG M-V"},
+ {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Ein Schüler der Klasse 9 stört trotz Gesprächen und schriftlichem Tadel den Unterricht erheblich. Sie erwägen einen Ausschluss für zwei Tage.",
+  q:"Wer entscheidet?",
+  o:["Die Klassenlehrkraft","Die Schulleiterin oder der Schulleiter","Die Teilkonferenz","Das Staatliche Schulamt"],
+  a:1, e:"Ein Ausschluss bis zu drei Tagen ist der Schulleitung zugewiesen. Vorausgehen müssen in der Regel Erziehungsmaßnahmen nach § 60.",
+  r:"§ 60a Abs. 1 Satz 3 Nr. 2 a SchulG M-V"},
+ {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Ein Schüler hat einen Mitschüler auf dem Schulhof wiederholt verletzt. Im Raum steht ein Ausschluss von drei Wochen. Die Schulkonferenz hat nichts Abweichendes beschlossen.",
+  q:"Wer ist zuständig?",
+  o:["Die Schulleitung allein","Eine von der Lehrkräftekonferenz berufene Teilkonferenz","Die Schulkonferenz","Die Schulbehörde"],
+  a:1, e:"Ausschlüsse über drei Tage bis zu drei Monaten sowie die Überweisung in eine Parallelklasse entscheidet die Teilkonferenz: Schulleitungsmitglied, Klassenlehrkraft, drei gewählte Lehrkräfte und eine Vertretung des Schülerrates. Die Schulkonferenz kann diese Zuständigkeit auf die Schulleitung übertragen.",
+  r:"§ 60a Abs. 1 Satz 4 und 5, Abs. 2 SchulG M-V"},
+ {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Ein Schüler bedroht am Montag Mitschüler ernsthaft. Die Teilkonferenz kann frühestens am Donnerstag tagen.",
+  q:"Was darf die Schulleitung sofort tun?",
+  o:["Nichts, bis die Teilkonferenz entschieden hat","Vorläufig vom Unterricht ausschließen, wenn die Sicherheit es erfordert; Anhörung und Beschluss unverzüglich nachholen","Ihn sofort für drei Monate ausschließen","Ihn ohne Anhörung an eine andere Schule überweisen"],
+  a:1, e:"Kommt ein längerer Ausschluss oder eine schwerere Maßnahme in Betracht, kann die Schulleitung vorläufig ausschließen, wenn Schulbetrieb oder Sicherheit es erfordern. Anhörung und Beschluss sind unverzüglich nachzuholen. Der vorläufige Ausschluss soll eine Woche nicht übersteigen.",
+  r:"§ 60a Abs. 7 SchulG M-V"},
+ {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Am Wochenende beleidigt eine Schülerin eine andere in einem privaten Gruppenchat. Am Montag fordern Eltern eine Ordnungsmaßnahme.",
+  q:"Wann darf außerschulisches Verhalten berücksichtigt werden?",
+  o:["Immer, wenn Schüler derselben Schule beteiligt sind","Nie","Nur wenn es den Unterrichts- oder Schulbetrieb unmittelbar stört","Nur auf Antrag der Polizei"],
+  a:2, e:"Maßgeblich ist das Verhalten innerhalb der Schule. Außerschulisches Verhalten zählt nur, wenn es den Schulbetrieb unmittelbar stört. Pädagogische Gespräche bleiben unabhängig davon möglich.",
+  r:"§ 60a Abs. 5 Satz 4 SchulG M-V"},
+ {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Bei einem Schüler der Klasse 10 erwägen Sie perspektivisch die Überweisung an ein anderes Gymnasium.",
+  q:"Was ist zu beachten?",
+  o:["Die Schulleitung entscheidet ohne Androhung","Die Schulbehörde entscheidet; die Maßnahme ist vorher anzudrohen, das kann schon mit einem schriftlichen Tadel geschehen","Die Teilkonferenz entscheidet ohne Androhung","Die Eltern müssen zustimmen"],
+  a:1, e:"Die Überweisung an eine andere Schule mit gleichem Abschluss trifft die Schulbehörde. Sie setzt besonders schwerwiegende Störungen voraus und ist anzudrohen, außer der Zweck der Androhung ist nicht erreichbar.",
+  r:"§ 60a Abs. 1 Satz 3 Nr. 3, Abs. 4, Abs. 5 SchulG M-V"},
+ {t:"Gremien", u:SCHULG("101"), l:"§ 101 SchulG", s:"Die Lehrkräftekonferenz beschließt, dass Klausuren der Qualifikationsphase nicht mehr an die Schüler zurückgegeben werden. Sie halten das für rechtswidrig.",
+  q:"Was müssen Sie tun?",
+  o:["Den Beschluss ausführen","Unverzüglich und begründet beanstanden; hilft die Konferenz nicht ab, entscheidet die Schulbehörde","Den Beschluss ignorieren","Die Schulkonferenz entscheiden lassen"],
+  a:1, e:"Rechtswidrige Konferenzbeschlüsse muss die Schulleitung unverzüglich beanstanden. Die Beanstandung ist zu begründen und hat aufschiebende Wirkung. Ohne Abhilfe entscheidet die Schulbehörde. Inhaltlich steht der Beschluss auch im Konflikt mit dem Recht auf Kopien von Arbeiten nach § 55 Abs. 4.",
+  r:"§ 101 Abs. 7, § 55 Abs. 4 SchulG M-V"},
+ {t:"Gremien", u:SCHULG("76"), l:"§ 76 SchulG", s:"Schülerrat und Elternrat wollen eine einheitliche Regel zur Handynutzung, auch für die Oberstufe.",
+  q:"Welches Gremium entscheidet?",
+  o:["Die Lehrkräftekonferenz","Die Schulleitung per Dienstanweisung","Die Schulkonferenz im Rahmen der Schulordnung","Der Schulträger"],
+  a:2, e:"Die Schulkonferenz entscheidet über die Schulordnung, ausdrücklich auch über Regeln zur Nutzung mobiler digitaler Endgeräte.",
+  r:"§ 76 Abs. 8 Nr. 5 e SchulG M-V"},
+ {t:"Gremien", u:SCHULG("76"), l:"§ 76 SchulG", s:"Ihr Gymnasium möchte ein besonderes Profilangebot einrichten, etwa eine MINT-Klasse.",
+  q:"Welches Gremium ist zuständig?",
+  o:["Allein die Schulleitung","Die Schulkonferenz entscheidet über die Einrichtung besonderer Angebote an Gymnasien","Die Fachkonferenz Mathematik","Der Elternrat"],
+  a:1, e:"Die Schulkonferenz ist für Entscheidungen über besondere Angebote an Gymnasien nach § 19 zuständig. Angelegenheiten mit finanziellen Folgen für den Schulträger brauchen dessen Zustimmung.",
+  r:"§ 76 Abs. 7 Nr. 6, Abs. 6 SchulG M-V"},
+ {t:"Gremien", u:SCHULG("76"), l:"§ 76 SchulG", s:"In der Schulkonferenz steht es bei einer Abstimmung unentschieden.",
+  q:"Wie wird entschieden?",
+  o:["Der Antrag ist abgelehnt","Es wird erneut abgestimmt","Das Votum der Schulleitung entscheidet","Die vorsitzende Person entscheidet"],
+  a:2, e:"Bei Stimmengleichheit führt das Votum der Schulleiterin oder des Schulleiters zur Entscheidung.",
+  r:"§ 76 Abs. 1 SchulG M-V"},
+ {t:"Gremien", u:SCHULG("76"), l:"§ 76 SchulG", s:"Ihr Schulleiter geht in den Ruhestand, die Stelle wird neu besetzt.",
+  q:"Welche Rolle hat die Schulkonferenz?",
+  o:["Sie wählt die neue Schulleitung","Sie ist vor der Bestellung anzuhören","Sie hat kein Mitwirkungsrecht","Sie führt die Eignungsgespräche"],
+  a:1, e:"Die Schulkonferenz ist vor der Bestellung anzuhören, mit dem Schulträger wird das Benehmen hergestellt. Die Auswahl trifft die Schulbehörde.",
+  r:"§ 76 Abs. 10 Nr. 1, § 101 Abs. 2 SchulG M-V"},
+ {t:"Leitung & Verwaltung", u:SCHULG("101"), l:"§ 101 SchulG", s:"Die Studienfahrt des 11. Jahrgangs wird geplant. Der Tutor fragt, ob er den Reisevertrag unterschreiben darf.",
+  q:"Wie ist die Rechtslage?",
+  o:["Nur der Schulträger schließt Reiseverträge","Die Schulleitung schließt sie mit Wirkung für das Land und kann Lehrkräfte damit beauftragen","Jede Lehrkraft darf das ohne Weiteres","Nur die Eltern als Vertragspartner"],
+  a:1, e:"Verträge für Schulfahrten schließt die Schulleitung mit Wirkung für und gegen das Land. Sie kann andere Lehrkräfte beauftragen.",
+  r:"§ 101 Abs. 9 SchulG M-V"},
+ {t:"Leitung & Verwaltung", u:SCHULG("101"), l:"§ 101 SchulG", s:"Für ein neues Konzept zum Umgang mit KI in Klausuren sollen alle Lehrkräfte der Oberstufe eine schulinterne Fortbildung besuchen. Ein Kollege lehnt ab.",
+  q:"Welche Befugnis hat die Schulleitung?",
+  o:["Keine, Fortbildung ist freiwillig","Sie kann zu Fortbildungen verpflichten, die für Qualität und Organisation der Schule notwendig sind","Nur die Schulbehörde kann verpflichten","Nur mit Zustimmung des Personalrats im Einzelfall"],
+  a:1, e:"Die Schulleitung fördert die Fortbildung und kann Lehrkräfte erforderlichenfalls zu Fortbildungen verpflichten, die für die Entwicklung von Qualität und Organisation der Schule notwendig sind.",
+  r:"§ 101 Abs. 4 Satz 2 Nr. 4 SchulG M-V"},
+ {t:"Leitung & Verwaltung", u:SCHULG("55"), l:"§ 55 SchulG", s:"Ein Vater verlangt eine Kopie der Physikklausur seiner Tochter aus Q1 und Einsicht in die privaten Notizen der Lehrkraft zum Sozialverhalten.",
+  q:"Wie ist zu entscheiden?",
+  o:["Beides gewähren","Beides ablehnen","Kopie der Klausur ja; persönliche Notizen, die nicht Teil der Schülerakte sind, nein","Nur Einsicht vor Ort, keine Kopie"],
+  a:2, e:"Erziehungsberechtigte dürfen Akten mit Daten über ihr Kind einsehen; Kopien von Klassen- oder Prüfungsarbeiten sind auf Wunsch zu ermöglichen. Persönliche Notizen der Lehrkraft außerhalb der Schülerakte sind ausgenommen.",
+  r:"§ 55 Abs. 4 SchulG M-V"},
+ {t:"Leitung & Verwaltung", u:SCHULG("101"), l:"§ 101 SchulG", s:"Ein Vater betritt wiederholt ohne Anmeldung Unterrichtsräume und stört.",
+  q:"Wer übt das Hausrecht aus?",
+  o:["Der Hausmeister","Die Schulleitung, sie übt das Hausrecht des Schulträgers aus","Nur der Schulträger selbst","Jede Lehrkraft aus eigenem Recht"],
+  a:1, e:"Die Schulleitung übt das Hausrecht des Schulträgers aus und sorgt für die Ordnung in der Schule.",
+  r:"§ 101 Abs. 3, Abs. 5 Nr. 3 SchulG M-V"},
+ {t:"Abitur & Prüfungsrecht", u:SCHULG("67"), l:"§ 67 SchulG", s:"Während der schriftlichen Abiturprüfung stört ein Prüfling trotz Ermahnung so massiv, dass die anderen nicht mehr ordnungsgemäß arbeiten können.",
+  q:"Welche Möglichkeit sieht das Gesetz vor?",
+  o:["Nur einen Vermerk im Protokoll","Ausschluss von der weiteren Prüfung; die Prüfung ist dann für nicht bestanden zu erklären","Eine Ordnungsmaßnahme nach der Prüfung, das Ergebnis bleibt bestehen","Die Prüfung wird für alle Prüflinge abgebrochen"],
+  a:1, e:"Behindert ein Prüfling die Prüfung so schwerwiegend, dass seine oder die Prüfung anderer nicht ordnungsgemäß möglich ist, kann er von der weiteren Prüfung ausgeschlossen werden. Die Prüfung ist dann für nicht bestanden zu erklären.",
+  r:"§ 67 Abs. 3 Satz 3 und 4 SchulG M-V"},
+ {t:"Verwaltungsvorschriften", u:LBV, l:"LeistBewVO M-V", s:"Bei einer Mathematikarbeit in Klasse 8 haben 16 von 27 Schülern eine Note schlechter als ausreichend. Die Kollegin will die Noten so eintragen.",
+  q:"Was ist vorgeschrieben?",
+  o:["Nichts, die Lehrkraft entscheidet allein","Das Ergebnis ist der Schulleitung unverzüglich anzuzeigen; die Schulleitung entscheidet nach Abwägung aller Umstände, ob gewertet oder wiederholt wird","Die Arbeit muss automatisch wiederholt werden","Die Fachkonferenz stimmt über die Wertung ab"],
+  a:1, e:"Mehr als die Hälfte unter ausreichend löst die Anzeigepflicht gegenüber der Schulleitung aus. Diese entscheidet nach Abwägung der Umstände, ob die Arbeit gewertet oder wiederholt wird.",
+  r:"§ 5 Abs. 9 LeistBewVO M-V (in Kraft seit 01.08.2026)"},
+ {t:"Verwaltungsvorschriften", u:LBV, l:"LeistBewVO M-V", s:"Eltern der 7a beschweren sich: In einer Woche wurden drei Klassenarbeiten geschrieben, eine davon am Vortag angekündigt.",
+  q:"Welche Regeln gelten?",
+  o:["Keine verbindlichen Vorgaben","Ankündigung mindestens fünf Unterrichtstage vorher; möglichst nur eine Arbeit pro Tag und nicht mehr als zwei pro Woche","Ankündigung eine Woche vorher, beliebig viele pro Woche","Höchstens eine Arbeit pro Woche"],
+  a:1, e:"Klassenarbeiten sind mindestens fünf Unterrichtstage zuvor anzukündigen. An einem Tag soll nur eine, in einer Woche sollen nicht mehr als zwei geschrieben werden. Als Schulleitung sorgen Sie für Abstimmung, etwa über einen Klassenarbeitsplan.",
+  r:"§ 5 Abs. 2 LeistBewVO M-V"},
+ {t:"Verwaltungsvorschriften", u:LBV, l:"LeistBewVO M-V", s:"Ein Vater klagt, dass die Englischarbeit seines Sohnes (Klasse 9) nach vier Wochen noch nicht zurückgegeben wurde.",
+  q:"Was gilt?",
+  o:["Eine Frist gibt es nicht","Außerhalb der Grundschule sollen Arbeiten in der Regel spätestens nach zwei Wochen korrigiert zurückgegeben werden","Rückgabe spätestens zum Halbjahreszeugnis","Drei Wochen sind die Regel"],
+  a:1, e:"Klassenarbeiten sollen in der Regel im Primarbereich nach einer Woche, im übrigen Geltungsbereich spätestens nach zwei Wochen korrigiert zurückgegeben werden. Ein Gespräch mit der Lehrkraft ist der nächste Schritt.",
+  r:"§ 5 Abs. 10 LeistBewVO M-V"},
+ {t:"Verwaltungsvorschriften", u:LBV, l:"LeistBewVO M-V", s:"Bei der Zeugniskonferenz Klasse 8 fragt ein Referendar, wie stark die Klassenarbeiten in Mathematik zählen.",
+  q:"Welcher Anteil gilt in Klasse 7 bis 9 am Gymnasium?",
+  o:["Ein Drittel in allen Fächern","50 Prozent in Deutsch, Mathematik und den Pflichtfremdsprachen, ein Drittel in den übrigen Fächern","Zwei Drittel in Kernfächern","Die Fachkonferenz legt den Anteil frei fest"],
+  a:1, e:"In den Jahrgangsstufen 7 bis 9 gehen Klassenarbeiten in Deutsch, Mathematik und den Pflichtfremdsprachen mit 50 Prozent ein, in den übrigen Fächern mit einem Drittel.",
+  r:"§ 14 Abs. 5 LeistBewVO M-V"},
+ {t:"Verwaltungsvorschriften", u:LBV, l:"LeistBewVO M-V", s:"Eine Lehrkraft bildet die Note in Geschichte Klasse 7 überwiegend aus kontrollierten Hausaufgaben.",
+  q:"Ist das zulässig?",
+  o:["Ja, Hausaufgaben sind gleichwertige Leistungen","Nein; Hausaufgaben dürfen ab Jahrgangsstufe 4 nicht alleinige Grundlage einer Leistungsbewertung sein","Ja, wenn die Fachkonferenz zustimmt","Nur in Nebenfächern"],
+  a:1, e:"Hausaufgaben dürfen ab Jahrgangsstufe 4 nicht alleinige Grundlage für eine Leistungsbewertung sein. Die Schulleitung sollte auf eine breite Grundlage der Note hinwirken.",
+  r:"§ 12 Abs. 2 LeistBewVO M-V"},
+ {t:"Aufsicht & Schulfahrten", u:SCHULG("61"), l:"§ 61 SchulG", s:"Nach der 6. Stunde warten Fahrschüler 40 Minuten auf dem Schulhof auf den Bus. Ein Kollege meint, nach Unterrichtsende sei die Schule nicht mehr zuständig.",
+  q:"Wie ist die Aufsichtspflicht geregelt?",
+  o:["Sie endet mit dem Unterrichtsende","Sie umfasst Schule und Schulgelände einschließlich der Zeit bis zum Beginn der Schülerbeförderung; geeignete pädagogische Mitarbeiter können damit betraut werden","Zuständig ist der Busunternehmer","Nur bei Schülern unter 14 Jahren"],
+  a:1, e:"Lehrkräfte beaufsichtigen in der Schule und auf dem Schulgelände, auch zwischen Unterrichtsende und Beginn der Schülerbeförderung, sowie bei Schulveranstaltungen außerhalb. Geeignete pädagogische Mitarbeiterinnen und Mitarbeiter können betraut werden. Die Schulleitung organisiert das über den Aufsichtsplan.",
+  r:"§ 61 SchulG M-V"},
+ {t:"Aufsicht & Schulfahrten", u:VVF, l:"VV Schulfahrten", s:"Eine Klasse mit 28 Schülern plant eine dreitägige Fahrt. Die Klassenlehrerin will allein fahren und reicht den Antrag eine Woche vorher ein.",
+  q:"Was ist zu beanstanden?",
+  o:["Nichts","Für bis zu 30 Schüler braucht es neben der verantwortlichen Lehrkraft eine weitere Aufsichts- oder Begleitperson; der Antrag soll in der Regel spätestens zwei Wochen vorher bei der Schulleitung liegen","Nur der Antrag ist zu spät","Für 28 Schüler sind drei Lehrkräfte Pflicht"],
+  a:1, e:"Schulfahrten genehmigt die Schulleitung, der Antrag kommt in der Regel spätestens zwei Wochen vorher. Eine Lehrkraft ist verantwortliche Aufsichtsperson; bis zu 30 Schüler kommt eine weitere Person hinzu, darüber je 15 Schüler eine weitere.",
+  r:"VV Durchführung von Schulwanderungen und Schulfahrten M-V (2017, geändert 2024)"},
+ {t:"Aufsicht & Schulfahrten", u:VVF, l:"VV Schulfahrten", s:"Auf der Studienfahrt nach Rügen wollen die Schüler am Nachmittag baden. Eine Gruppe schlägt einen Fluss in der Nähe vor.",
+  q:"Was ist zu beachten?",
+  o:["Baden ist auf Schulfahrten verboten","Wassersport ist möglich, wenn eine Aufsichts- oder Begleitperson eine gültige Rettungsschwimmerqualifikation hat; Fluss- und Kanalschwimmen sind verboten","Erlaubt, wenn alle Schüler schwimmen können","Volljährige dürfen überall ohne Aufsicht baden"],
+  a:1, e:"Wassersport ist grundsätzlich erlaubt, setzt aber eine Person mit gültiger Rettungsschwimmerqualifikation voraus. Fluss- und Kanalschwimmen sind ausdrücklich verboten.",
+  r:"VV Schulwanderungen und Schulfahrten M-V"},
+ {t:"Aufsicht & Schulfahrten", u:VVF, l:"VV Schulfahrten", s:"Auf der Studienfahrt sollen Schüler der Klasse 11 einen Nachmittag in kleinen Gruppen frei durch die Stadt gehen. Eine Mutter hat schriftlich widersprochen.",
+  q:"Wie ist zu entscheiden?",
+  o:["Ab Klasse 11 gibt es keine Einschränkung","Freizeit kann nach Alter, Disziplin und Reife gewährt werden; widersprechen die Eltern, nimmt dieses Kind nicht an der freien Zeit teil","Freizeit ist nur bei Volljährigkeit erlaubt","Die Mutter kann die Freizeit für alle untersagen"],
+  a:1, e:"Die Aufsicht auf Schulfahrten setzt eine Einverständniserklärung der Eltern voraus. Freizeit kann unter Berücksichtigung von Alter, Disziplin und Reife gewährt werden, die Eltern können dem für ihr Kind widersprechen.",
+  r:"VV Schulwanderungen und Schulfahrten M-V"},
+ {t:"Dienstrecht", u:BEAMT("36"), l:"§ 36 BeamtStG", s:"Eine verbeamtete Lehrkraft hält Ihre Anweisung zur Notenbekanntgabe im Klassenchat für datenschutzrechtlich unzulässig.",
+  q:"Wie muss sie vorgehen?",
+  o:["Die Anweisung einfach nicht befolgen","Bedenken unverzüglich bei Ihnen als unmittelbarer Vorgesetzter geltend machen; halten Sie fest, kann sie sich an die nächsthöhere Vorgesetzte wenden","Direkt den Personalrat entscheiden lassen","Sie muss ohne Weiteres gehorchen"],
+  a:1, e:"Beamtinnen und Beamte tragen die Verantwortung für die Rechtmäßigkeit ihres Handelns. Bedenken sind unverzüglich beim unmittelbaren Vorgesetzten geltend zu machen (Remonstration), bei Bestätigung beim nächsthöheren. Wird die Anordnung dann bestätigt, ist sie auszuführen, sofern das Verhalten nicht strafbar oder ordnungswidrig ist oder die Menschenwürde verletzt; die Lehrkraft ist dann von der eigenen Verantwortung befreit. Als Schulleitung sollten Sie die Anweisung ohnehin prüfen.",
+  r:"§ 36 BeamtStG"},
+ {t:"Dienstrecht", u:BEAMT("42"), l:"§ 42 BeamtStG", s:"Zum Abiball schenkt der Abiturjahrgang einer Kollegin einen Gutschein im Wert von 150 Euro für ein Wellnesshotel.",
+  q:"Darf sie das annehmen?",
+  o:["Ja, Geschenke nach dem Abitur sind unproblematisch","Nur mit Zustimmung des Dienstherrn; ohne Zustimmung ist die Annahme von Geschenken in Bezug auf das Amt verboten","Ja, wenn sie es in der Konferenz bekannt gibt","Ja, bis 200 Euro"],
+  a:1, e:"Beamtinnen und Beamte dürfen keine Geschenke oder Vorteile in Bezug auf ihr Amt annehmen; Ausnahmen bedürfen der Zustimmung des Dienstherrn. Wertgrenzen und Zustimmungsfiktionen für geringwertige Aufmerksamkeiten regelt das Land gesondert; im Zweifel vorher klären lassen.",
+  r:"§ 42 Abs. 1 BeamtStG"},
+ {t:"Dienstrecht", u:PERS, l:"VV personalrechtl. Befugnisse", s:"Eine Lehrkraft beantragt eine Beurlaubung für einen Tag, um an der Hochzeit ihres Bruders im Ausland teilzunehmen.",
+  q:"Wer ist für Erholungsurlaub und Beurlaubungen der Lehrkräfte zuständig?",
+  o:["Ausschließlich das Staatliche Schulamt","Die Schulleitung, mit Ausnahme der Befugnisse nach § 28 TV-L (Sonderurlaub bei Tarifbeschäftigten)","Der Personalrat","Das Bildungsministerium"],
+  a:1, e:"Nach der Anordnung über personalrechtliche Befugnisse (geändert 2024) ist die Schulleitung für Anordnung und Genehmigung von Erholungsurlaub und Beurlaubungen zuständig, ausgenommen die Befugnisse nach § 28 TV-L.",
+  r:"Anordnung über die personalrechtlichen Befugnisse in der Schulaufsicht, Abschnitt III Nr. 1 (Änderung vom 20.06.2024)"},
+ {t:"Dienstrecht", u:PERS, l:"VV Stundenkonten", s:"Ein Kollege möchte ein langfristiges Unterrichtsstundenkonto anlegen, um später ein Sabbat-Halbjahr zu nehmen. Er will fünf Stunden pro Woche zusätzlich ansparen.",
+  q:"Was ist an einem Gymnasium zulässig?",
+  o:["Bis zu sechs Stunden pro Woche","Mindestens eine, höchstens drei Lehrerwochenstunden; Anspar- und Ausgleichsphase zusammen sollen zehn Schuljahre nicht übersteigen; Ausgleich durch bezahlte Freistellung von mindestens einem Halbjahr","Beliebig viele Stunden, Auszahlung möglich","Stundenkonten gibt es nur an beruflichen Schulen"],
+  a:1, e:"An allgemein bildenden Schulen beträgt die Ansparung eine bis drei Lehrerwochenstunden (berufliche Schulen bis sechs). Anspar- und Ausgleichsphase sollen zusammen höchstens zehn Schuljahre dauern; ausgeglichen wird durch bezahlte Freistellung über mindestens ein Schulhalbjahr.",
+  r:"VV langfristige Unterrichtsstundenkonten M-V (03.07.2024)"}
+];
+const TOPICS = ["Alle", ...new Set(CASES.map(c=>c.t))];
+const MISTAKES = "Meine Fehler";
+function hid(str){let h=5381;for(const ch of str)h=((h<<5)+h+ch.charCodeAt(0))>>>0;return "c"+h.toString(36)}
+CASES.forEach(c=>c.id=hid(c.q+"|"+c.s.slice(0,60)));
+
+/* Fortschritt: im claude.ai-Konto (db, privat pro Person) oder im Browser (localStorage, z. B. auf GitHub Pages) */
+let progress = {};           // id -> {ok:boolean, n:number, okN:number, at:string}
+let store = {kind:"none"};
+const LS_KEY = "schulrecht-fallbank-progress-v1";
+function lsRead(){try{return JSON.parse(localStorage.getItem(LS_KEY)||"{}")}catch(e){return {}}}
+function lsWrite(){try{localStorage.setItem(LS_KEY,JSON.stringify(progress));return true}catch(e){return false}}
+
+async function initStore(){
+  progress = lsRead();
+  store = {kind: Object.keys(progress).length || lsWrite() ? "browser" : "none"};
+  renderSave();
+  try{
+    if(!window.claude || !window.claude.use) return;
+    const [db,user] = await Promise.all([claude.use("db"), claude.use("user")]);
+    if(!db || !user) return;
+    const uid = await user.id();
+    if(!uid) return;
+    const ref = db.doc("data/users/"+uid+"/progress");
+    const snap = await ref.get();
+    const remote = snap.exists ? (snap.data().cases || {}) : {};
+    // Browserstand und Kontostand zusammenführen (neuere Antwort gewinnt)
+    const merged = {...remote};
+    for(const [k,v] of Object.entries(progress)){ if(!merged[k] || (v.at||"") > (merged[k].at||"")) merged[k]=v; }
+    progress = merged;
+    store = {kind:"account", ref};
+    renderSave(); renderFilters(); updStats();
+    if(JSON.stringify(merged)!==JSON.stringify(remote)) queueSave();
+  }catch(e){ /* bleibt beim Browserspeicher */ }
+}
+let saving=false, dirty=false;
+async function queueSave(){
+  lsWrite();
+  if(store.kind!=="account"){ renderSave(); return; }
+  dirty=true; if(saving) return;
+  saving=true;
+  while(dirty){
+    dirty=false;
+    try{ await store.ref.set({cases:{...progress}, updated:new Date().toISOString()}); setSaveNote("Gespeichert in Ihrem claude.ai-Konto."); }
+    catch(e){ if(e && e.code==="invalid_argument"){store={kind:"browser"};} setSaveNote(store.kind==="browser"?"Konto-Speicherung nicht möglich, Stand liegt nur in diesem Browser.":"Speichern gerade nicht möglich, wird beim nächsten Fall erneut versucht."); }
+  }
+  saving=false;
+}
+function record(c, ok){
+  const prev = progress[c.id] || {n:0, okN:0};
+  progress[c.id] = {ok, n:prev.n+1, okN:prev.okN+(ok?1:0), at:new Date().toISOString()};
+  queueSave(); renderFilters();
+}
+function stats(){
+  let done=0, right=0, wrong=0;
+  CASES.forEach(c=>{const p=progress[c.id]; if(p){done++; p.ok?right++:wrong++;}});
+  return {done, right, wrong, open: CASES.length-done};
+}
+function setSaveNote(t){ const el=$("#savenote"); if(el) el.textContent=t; }
+function renderSave(){
+  const st=stats();
+  $("#saveTotals").innerHTML = `<span><b>${st.done}</b> von ${CASES.length} Fällen bearbeitet</span><span class="ok-t"><b>${st.right}</b> zuletzt richtig</span><span class="bad-t"><b>${st.wrong}</b> zuletzt falsch</span><span><b>${st.open}</b> offen</span>`;
+  setSaveNote(store.kind==="account" ? "Gespeichert in Ihrem claude.ai-Konto, auf allen Geräten verfügbar."
+    : store.kind==="browser" ? "Gespeichert in diesem Browser." : "Speichern ist in dieser Ansicht nicht möglich.");
+}
+
+let topic = "Alle", deck = [], i = 0, score = 0, answered = 0;
+const $ = s => document.querySelector(s);
+
+function shuffle(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+function pool(){
+  if(topic===MISTAKES) return CASES.filter(c=>progress[c.id] && !progress[c.id].ok);
+  return CASES.filter(c=>topic==="Alle"||c.t===topic);
+}
+function start(){ deck = shuffle(pool()); i=0; score=0; answered=0; render(); }
+
+function renderFilters(){
+  const f=$("#filters"); f.innerHTML="";
+  const wrongN = stats().wrong;
+  [...TOPICS, MISTAKES].forEach(t=>{const b=document.createElement("button");b.className="chip"+(t===MISTAKES?" chip-err":"");b.type="button";
+    b.textContent = t===MISTAKES ? `${t} (${wrongN})` : t;
+    b.setAttribute("aria-pressed",t===topic);b.onclick=()=>{topic=t;renderFilters();start()};f.appendChild(b)});
+  const s=document.createElement("span");s.className="stats";s.id="stats";f.appendChild(s);
+  renderSave(); updStats();
+}
+function updStats(){ const el=$("#stats"); if(!el) return;
+  el.textContent = deck.length ? `${score}/${answered} richtig · Fall ${Math.min(i+1,deck.length)} von ${deck.length}` : "";
+  $("#prog").style.width=(deck.length?answered/deck.length*100:0)+"%"; }
+
+function lastBadge(c){
+  const p=progress[c.id]; if(!p) return `<span class="badge">neu</span>`;
+  return `<span class="badge ${p.ok?"b-ok":"b-bad"}">zuletzt ${p.ok?"richtig":"falsch"} · ${p.okN}/${p.n}</span>`;
+}
+
+function render(){
+  const st=$("#stage"); updStats();
+  if(!deck.length){
+    st.innerHTML=`<section class="case end"><div class="meta"><span>${topic===MISTAKES?"Fehlerliste":"Keine Fälle"}</span></div>
+      <p>${topic===MISTAKES?"Aktuell ist kein Fall als falsch beantwortet gespeichert. Sobald Sie einen Fall falsch lösen, erscheint er hier.":"In diesem Bereich gibt es keine Fälle."}</p>
+      <button class="btn" type="button" id="toAll">Alle Fälle üben</button></section>`;
+    $("#toAll").onclick=()=>{topic="Alle";renderFilters();start()}; return;
+  }
+  if(i>=deck.length){
+    const pct=Math.round(score/deck.length*100);
+    st.innerHTML=`<section class="case end"><div class="meta"><span>Auswertung</span></div>
+      <div class="score">${score} / ${deck.length}</div>
+      <p>${pct>=80?"Sicher in diesem Bereich.":pct>=50?"Solide Basis, einzelne Normen nachlesen.":"Die Normen lohnen eine zweite Runde."}</p>
+      <div class="nav" style="justify-content:center">${stats().wrong?`<button class="btn ghost" type="button" id="errs">Meine Fehler wiederholen (${stats().wrong})</button>`:""}<button class="btn" type="button" id="again">Neue Runde mischen</button></div></section>`;
+    $("#again").onclick=start;
+    const e=$("#errs"); if(e) e.onclick=()=>{topic=MISTAKES;renderFilters();start()};
+    return;
+  }
+  const c=deck[i], keys="ABCD";
+  st.innerHTML=`<section class="case" aria-live="polite">
+    <div class="meta"><span>Fall <b>${String(i+1).padStart(2,"0")}</b></span><span>${c.t}</span>${lastBadge(c)}</div>
+    <p class="sachverhalt">${c.s}</p>
+    <p class="frage">${c.q}</p>
+    <div class="opts">${c.o.map((o,k)=>`<button class="opt" type="button" data-k="${k}"><span class="k">${keys[k]}</span><span>${o}</span></button>`).join("")}</div>
+    <div class="loesung" id="loes" hidden></div>
+    <div class="nav"><button class="btn ghost" type="button" id="skip">Überspringen</button><button class="btn" type="button" id="next" disabled>Nächster Fall</button></div>
+  </section>`;
+  st.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(+b.dataset.k));
+  $("#next").onclick=()=>{i++;render()};
+  $("#skip").onclick=()=>{answered++;i++;render()};
+}
+function pick(k){
+  const c=deck[i], ok=k===c.a; answered++; if(ok) score++;
+  document.querySelectorAll(".opt").forEach((b,j)=>{b.disabled=true;if(j===c.a)b.classList.add("right");else if(j===k)b.classList.add("wrong")});
+  const l=$("#loes"); l.hidden=false;
+  l.innerHTML=`<div class="verdict ${ok?"ok":"no"}">${ok?"Richtig.":"Nicht ganz. Richtig ist "+"ABCD"[c.a]+"."}</div>
+    <p>${c.e}</p><div class="norm">${c.r} · <a href="${c.u}" target="_blank" rel="noopener">Normtext ${c.l}</a></div>`;
+  $("#skip").hidden=true; $("#next").disabled=false; $("#next").textContent=i===deck.length-1?"Auswertung":"Nächster Fall"; $("#next").focus();
+  record(c, ok); updStats();
+}
+
+/* Zurücksetzen mit Bestätigung auf der Seite */
+$("#resetBtn").onclick=()=>{ $("#resetConfirm").hidden=false; $("#resetBtn").hidden=true; };
+$("#resetNo").onclick=()=>{ $("#resetConfirm").hidden=true; $("#resetBtn").hidden=false; };
+$("#resetYes").onclick=()=>{ progress={}; queueSave(); $("#resetConfirm").hidden=true; $("#resetBtn").hidden=false; renderFilters(); if(topic===MISTAKES) start(); };
+
+renderFilters(); start(); initStore();
+</script>
+
+</body>
+</html>
