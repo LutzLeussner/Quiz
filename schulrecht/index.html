@@ -87,7 +87,7 @@ footer{font-size:.85rem;color:var(--muted);max-width:65ch}
 <div class="wrap">
   <header>
     <h1>Schulleitungs-Fallbank Gymnasium MV</h1>
-    <p>Fälle aus dem Alltag einer Gymnasialleitung: Abitur und Prüfungsrecht, Leistungsbewertung, Aufsicht und Schulfahrten, Dienstrecht, Gremien und Ordnungsmaßnahmen. Entscheiden Sie, wie die Schulleitung korrekt handelt, und prüfen Sie die Lösung an der Norm.</p>
+    <p>60 Fälle aus dem Alltag einer Gymnasialleitung: Abitur und Prüfungsrecht, Leistungsbewertung und Versetzung, Gremien und Mitwirkung, Eltern und Schulpflicht, Aufsicht und Schulfahrten, Dienstrecht und Ordnungsmaßnahmen. Entscheiden Sie, wie die Schulleitung korrekt handelt, und prüfen Sie die Lösung an der Norm.</p>
   </header>
 
   <section class="savebox" aria-label="Ihr Lernstand">
@@ -114,191 +114,966 @@ const VVF = "https://www.bildung-mv.de/export/sites/bildungsserver/.galleries/do
 const PERS = "https://www.regierung-mv.de/serviceassistent/download?id=1671033";
 const BEAMT = n => "https://www.gesetze-im-internet.de/beamtstg/__" + n + ".html";
 const CASES = [
- {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"In einer Mathematikklausur der Qualifikationsphase entdeckt die Aufsicht bei einer Schülerin ein Smartphone mit geöffnetem KI-Chat. Die Kollegin fragt Sie, was jetzt passiert.",
-  q:"Wer entscheidet über die Folgen, und welche Möglichkeiten bestehen?",
-  o:["Die Schulleitung entscheidet; zwingend Note ungenügend","Die Lehrkraft entscheidet: Note ungenügend, Anordnung der Wiederholung oder Fortsetzung mit teilweiser oder ganzer Bewertung","Die Prüfungskommission entscheidet","Die Teilkonferenz entscheidet über eine Ordnungsmaßnahme, die Klausur bleibt unberührt"],
-  a:1, e:"Bei Täuschung oder Täuschungsversuch in einer Leistungsermittlung der Oberstufe entscheidet die Lehrkraft zwischen drei Folgen: ungenügend, Wiederholung oder Fortsetzung mit (Teil-)Bewertung. Als Schulleitung beraten Sie und achten auf einheitliche Handhabung im Kollegium. Eine Ordnungsmaßnahme ist davon getrennt zu prüfen.",
-  r:"§ 23 APVO M-V"},
- {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Ein Schüler aus Q1 erscheint zur angekündigten Physikklausur nicht und meldet sich auch danach nicht. Eine Entschuldigung liegt nicht vor.",
-  q:"Wie wird die Klausur bewertet?",
-  o:["Sie muss nachgeschrieben werden","Sie entfällt ersatzlos","Unentschuldigtes Versäumen wird wie Leistungsverweigerung behandelt: ungenügend","Die Kursnote wird ohne diese Klausur gebildet"],
-  a:2, e:"Wer eine angekündigte Leistungsermittlung unentschuldigt versäumt, wird wie bei Leistungsverweigerung behandelt; die Leistung gilt als ungenügend. Nur bei Gründen, die der Schüler nicht zu vertreten hat, ist Gelegenheit zum Nachholen oder zu einer komplexen Leistung zu geben.",
-  r:"§ 23 APVO M-V"},
- {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Am Morgen der schriftlichen Abiturprüfung in Deutsch meldet sich eine Schülerin krank. Die Mutter kündigt ein Attest der Hausärztin an.",
-  q:"Was ist rechtlich gefordert?",
-  o:["Ein hausärztliches Attest innerhalb von drei Tagen genügt","Die Schülerin muss die Gründe unverzüglich mitteilen und glaubhaft machen; bei Erkrankung ist ein amtsärztliches Zeugnis vorzulegen; die Prüfungskommission regelt die Fortsetzung","Die Prüfung gilt als nicht bestanden","Die Fachlehrkraft legt einen Nachtermin fest"],
-  a:1, e:"Bei Nichtteilnahme an einem Prüfungsteil sind die Gründe unverzüglich mitzuteilen und glaubhaft zu machen. Bei Krankheit verlangt die Verordnung ein amtsärztliches Zeugnis. Hat der Prüfling die Gründe nicht zu vertreten, regelt die Prüfungskommission die Fortsetzung der Abiturprüfung.",
-  r:"§ 34 APVO M-V"},
- {t:"Abitur & Prüfungsrecht", u:SCHULG("67"), l:"§ 67 SchulG", s:"In der schriftlichen Abiturprüfung Biologie wird bei einem Prüfling ein beschriebener Spickzettel gefunden, den er nachweislich benutzt hat.",
-  q:"Welche Rechtsfolge sieht das Schulgesetz vor?",
-  o:["Nur die Biologieprüfung wird mit 0 Punkten bewertet","Die gesamte Prüfung ist für nicht bestanden zu erklären; nur in leichteren Fällen ist die betroffene Prüfungsleistung zu wiederholen","Es folgt eine Ordnungsmaßnahme, die Prüfung bleibt gültig","Die Lehrkraft entscheidet frei wie bei einer Kursklausur"],
-  a:1, e:"Versucht ein Prüfling, das Ergebnis durch Täuschung zu beeinflussen, ist die gesamte Prüfung für nicht bestanden zu erklären. In leichteren Fällen ist die betroffene Prüfungsleistung zu wiederholen. Das ist strenger als die Regel für Kursklausuren.",
-  r:"§ 67 Abs. 3 SchulG M-V"},
- {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Zur Vorbereitung des Abiturs wird die Prüfungskommission gebildet. Die Oberstufenkoordinatorin fragt, wer den Vorsitz hat und wie groß die Kommission ist.",
-  q:"Was gilt?",
-  o:["Vorsitz durch das Staatliche Schulamt, fünf Mitglieder","Vorsitz durch die Schulleitung, ihre Stellvertretung oder die Oberstufenkoordination; insgesamt drei Mitglieder; die Schulbehörde kann abweichend regeln","Vorsitz durch die dienstälteste Lehrkraft","Vorsitz durch die Tutorinnen und Tutoren des Jahrgangs"],
-  a:1, e:"Die Prüfungskommission besteht aus einem vorsitzenden und zwei weiteren Mitgliedern. Den Vorsitz führt die Schulleitung oder ihre Stellvertretung bzw. die Oberstufenkoordination, soweit die Schulbehörde nichts anderes regelt. Die Kommission legt den Ablauf fest, sichert die einheitliche Bewertung und entscheidet bei Verstößen.",
-  r:"§ 27 APVO M-V"},
- {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Ein Schüler mit diagnostizierter Lese-Rechtschreib-Störung hatte im Unterricht der Q-Phase Nachteilsausgleich. Die Eltern fragen, wie das im Abitur läuft.",
-  q:"Wie ist das Verfahren?",
-  o:["Der Nachteilsausgleich gilt automatisch weiter","Antrag spätestens mit Abgabe der Prüfungsfächerwahl beim Vorsitz der Prüfungskommission; Entscheidung in Abstimmung mit der Schulbehörde","Die Fachlehrkraft entscheidet am Prüfungstag","Im Abitur gibt es keinen Nachteilsausgleich"],
-  a:1, e:"Der Antrag ist spätestens mit der Wahl der Prüfungsfächer beim vorsitzenden Mitglied der Prüfungskommission einzureichen. Es entscheidet in Abstimmung mit der Schulbehörde; bei vorübergehender Erkrankung allein. Voraussetzung ist ein Nachteilsausgleich bereits im Unterricht.",
-  r:"§ 33 APVO M-V"},
- {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Für die mündlichen Abiturprüfungen planen Sie Räume und Personal. Ein neuer Kollege fragt nach Besetzung und Dauer.",
-  q:"Was ist der Regelfall?",
-  o:["Zwei Prüfer, 30 Minuten, Gruppenprüfung möglich","Drei Mitglieder (Fachprüfungsleitung, Prüfer, Protokoll); Einzelprüfung von in der Regel 20 Minuten in zwei Teilen","Prüfer allein mit Protokoll, 15 Minuten","Die gesamte Prüfungskommission, 45 Minuten"],
-  a:1, e:"Der Fachprüfungsausschuss für mündliche Prüfungen besteht in der Regel aus Fachprüfungsleitung, Prüferin oder Prüfer und Protokollführung. Die mündliche Prüfung ist eine Einzelprüfung, dauert in der Regel 20 Minuten und hat zwei Teile.",
-  r:"§§ 28, 38 APVO M-V"},
- {t:"Abitur & Prüfungsrecht", u:APVO, l:"APVO M-V", s:"Eine Schülerin aus Q2 überlegt, sich nicht zur Abiturprüfung anzumelden, und hat keinen freiwilligen Rücktritt beantragt.",
-  q:"Welche Folge hat das?",
-  o:["Sie wiederholt automatisch Q2","Keine, sie kann im nächsten Jahr antreten","Die Abiturprüfung gilt als nicht bestanden","Sie erhält die Fachhochschulreife"],
-  a:2, e:"Wer sich nicht zur Abiturprüfung meldet und keinen freiwilligen Rücktritt nach § 3 Abs. 4 beantragt, nicht zugelassen ist oder bis zum Prüfungsbeginn zurücktritt, hat die Abiturprüfung nicht bestanden. Eine frühzeitige Beratung zum freiwilligen Rücktritt ist deshalb wichtig.",
-  r:"§ 29 i. V. m. § 3 Abs. 4 APVO M-V"},
- {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Eine 18-jährige Schülerin aus Q2 hat eine Lehrkraft massiv beleidigt. Eine Ordnungsmaßnahme wird erwogen. Die Eltern verlangen, an der Anhörung teilzunehmen.",
-  q:"Wer ist anzuhören?",
-  o:["Schülerin und Eltern in jedem Fall","Die Schülerin; die Pflicht, Erziehungsberechtigte anzuhören, gilt nur bei Minderjährigen","Nur die Eltern","Niemand, bei Volljährigen entfällt die Anhörung"],
-  a:1, e:"Vor jeder Ordnungsmaßnahme ist die betroffene Schülerin zu hören, bei Minderjährigen auch die Erziehungsberechtigten. Die Schülerin kann eine zur Schule gehörende Vertrauensperson als Beistand beteiligen.",
-  r:"§ 60a Abs. 6 SchulG M-V"},
- {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Ein Schüler der Klasse 9 stört trotz Gesprächen und schriftlichem Tadel den Unterricht erheblich. Sie erwägen einen Ausschluss für zwei Tage.",
-  q:"Wer entscheidet?",
-  o:["Die Klassenlehrkraft","Die Schulleiterin oder der Schulleiter","Die Teilkonferenz","Das Staatliche Schulamt"],
-  a:1, e:"Ein Ausschluss bis zu drei Tagen ist der Schulleitung zugewiesen. Vorausgehen müssen in der Regel Erziehungsmaßnahmen nach § 60.",
-  r:"§ 60a Abs. 1 Satz 3 Nr. 2 a SchulG M-V"},
- {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Ein Schüler hat einen Mitschüler auf dem Schulhof wiederholt verletzt. Im Raum steht ein Ausschluss von drei Wochen. Die Schulkonferenz hat nichts Abweichendes beschlossen.",
-  q:"Wer ist zuständig?",
-  o:["Die Schulleitung allein","Eine von der Lehrkräftekonferenz berufene Teilkonferenz","Die Schulkonferenz","Die Schulbehörde"],
-  a:1, e:"Ausschlüsse über drei Tage bis zu drei Monaten sowie die Überweisung in eine Parallelklasse entscheidet die Teilkonferenz: Schulleitungsmitglied, Klassenlehrkraft, drei gewählte Lehrkräfte und eine Vertretung des Schülerrates. Die Schulkonferenz kann diese Zuständigkeit auf die Schulleitung übertragen.",
-  r:"§ 60a Abs. 1 Satz 4 und 5, Abs. 2 SchulG M-V"},
- {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Ein Schüler bedroht am Montag Mitschüler ernsthaft. Die Teilkonferenz kann frühestens am Donnerstag tagen.",
-  q:"Was darf die Schulleitung sofort tun?",
-  o:["Nichts, bis die Teilkonferenz entschieden hat","Vorläufig vom Unterricht ausschließen, wenn die Sicherheit es erfordert; Anhörung und Beschluss unverzüglich nachholen","Ihn sofort für drei Monate ausschließen","Ihn ohne Anhörung an eine andere Schule überweisen"],
-  a:1, e:"Kommt ein längerer Ausschluss oder eine schwerere Maßnahme in Betracht, kann die Schulleitung vorläufig ausschließen, wenn Schulbetrieb oder Sicherheit es erfordern. Anhörung und Beschluss sind unverzüglich nachzuholen. Der vorläufige Ausschluss soll eine Woche nicht übersteigen.",
-  r:"§ 60a Abs. 7 SchulG M-V"},
- {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Am Wochenende beleidigt eine Schülerin eine andere in einem privaten Gruppenchat. Am Montag fordern Eltern eine Ordnungsmaßnahme.",
-  q:"Wann darf außerschulisches Verhalten berücksichtigt werden?",
-  o:["Immer, wenn Schüler derselben Schule beteiligt sind","Nie","Nur wenn es den Unterrichts- oder Schulbetrieb unmittelbar stört","Nur auf Antrag der Polizei"],
-  a:2, e:"Maßgeblich ist das Verhalten innerhalb der Schule. Außerschulisches Verhalten zählt nur, wenn es den Schulbetrieb unmittelbar stört. Pädagogische Gespräche bleiben unabhängig davon möglich.",
-  r:"§ 60a Abs. 5 Satz 4 SchulG M-V"},
- {t:"Ordnungsmaßnahmen", u:SCHULG("60a"), l:"§ 60a SchulG", s:"Bei einem Schüler der Klasse 10 erwägen Sie perspektivisch die Überweisung an ein anderes Gymnasium.",
-  q:"Was ist zu beachten?",
-  o:["Die Schulleitung entscheidet ohne Androhung","Die Schulbehörde entscheidet; die Maßnahme ist vorher anzudrohen, das kann schon mit einem schriftlichen Tadel geschehen","Die Teilkonferenz entscheidet ohne Androhung","Die Eltern müssen zustimmen"],
-  a:1, e:"Die Überweisung an eine andere Schule mit gleichem Abschluss trifft die Schulbehörde. Sie setzt besonders schwerwiegende Störungen voraus und ist anzudrohen, außer der Zweck der Androhung ist nicht erreichbar.",
-  r:"§ 60a Abs. 1 Satz 3 Nr. 3, Abs. 4, Abs. 5 SchulG M-V"},
- {t:"Gremien", u:SCHULG("101"), l:"§ 101 SchulG", s:"Die Lehrkräftekonferenz beschließt, dass Klausuren der Qualifikationsphase nicht mehr an die Schüler zurückgegeben werden. Sie halten das für rechtswidrig.",
-  q:"Was müssen Sie tun?",
-  o:["Den Beschluss ausführen","Unverzüglich und begründet beanstanden; hilft die Konferenz nicht ab, entscheidet die Schulbehörde","Den Beschluss ignorieren","Die Schulkonferenz entscheiden lassen"],
-  a:1, e:"Rechtswidrige Konferenzbeschlüsse muss die Schulleitung unverzüglich beanstanden. Die Beanstandung ist zu begründen und hat aufschiebende Wirkung. Ohne Abhilfe entscheidet die Schulbehörde. Inhaltlich steht der Beschluss auch im Konflikt mit dem Recht auf Kopien von Arbeiten nach § 55 Abs. 4.",
-  r:"§ 101 Abs. 7, § 55 Abs. 4 SchulG M-V"},
- {t:"Gremien", u:SCHULG("76"), l:"§ 76 SchulG", s:"Schülerrat und Elternrat wollen eine einheitliche Regel zur Handynutzung, auch für die Oberstufe.",
-  q:"Welches Gremium entscheidet?",
-  o:["Die Lehrkräftekonferenz","Die Schulleitung per Dienstanweisung","Die Schulkonferenz im Rahmen der Schulordnung","Der Schulträger"],
-  a:2, e:"Die Schulkonferenz entscheidet über die Schulordnung, ausdrücklich auch über Regeln zur Nutzung mobiler digitaler Endgeräte.",
-  r:"§ 76 Abs. 8 Nr. 5 e SchulG M-V"},
- {t:"Gremien", u:SCHULG("76"), l:"§ 76 SchulG", s:"Ihr Gymnasium möchte ein besonderes Profilangebot einrichten, etwa eine MINT-Klasse.",
-  q:"Welches Gremium ist zuständig?",
-  o:["Allein die Schulleitung","Die Schulkonferenz entscheidet über die Einrichtung besonderer Angebote an Gymnasien","Die Fachkonferenz Mathematik","Der Elternrat"],
-  a:1, e:"Die Schulkonferenz ist für Entscheidungen über besondere Angebote an Gymnasien nach § 19 zuständig. Angelegenheiten mit finanziellen Folgen für den Schulträger brauchen dessen Zustimmung.",
-  r:"§ 76 Abs. 7 Nr. 6, Abs. 6 SchulG M-V"},
- {t:"Gremien", u:SCHULG("76"), l:"§ 76 SchulG", s:"In der Schulkonferenz steht es bei einer Abstimmung unentschieden.",
-  q:"Wie wird entschieden?",
-  o:["Der Antrag ist abgelehnt","Es wird erneut abgestimmt","Das Votum der Schulleitung entscheidet","Die vorsitzende Person entscheidet"],
-  a:2, e:"Bei Stimmengleichheit führt das Votum der Schulleiterin oder des Schulleiters zur Entscheidung.",
-  r:"§ 76 Abs. 1 SchulG M-V"},
- {t:"Gremien", u:SCHULG("76"), l:"§ 76 SchulG", s:"Ihr Schulleiter geht in den Ruhestand, die Stelle wird neu besetzt.",
-  q:"Welche Rolle hat die Schulkonferenz?",
-  o:["Sie wählt die neue Schulleitung","Sie ist vor der Bestellung anzuhören","Sie hat kein Mitwirkungsrecht","Sie führt die Eignungsgespräche"],
-  a:1, e:"Die Schulkonferenz ist vor der Bestellung anzuhören, mit dem Schulträger wird das Benehmen hergestellt. Die Auswahl trifft die Schulbehörde.",
-  r:"§ 76 Abs. 10 Nr. 1, § 101 Abs. 2 SchulG M-V"},
- {t:"Leitung & Verwaltung", u:SCHULG("101"), l:"§ 101 SchulG", s:"Die Studienfahrt des 11. Jahrgangs wird geplant. Der Tutor fragt, ob er den Reisevertrag unterschreiben darf.",
-  q:"Wie ist die Rechtslage?",
-  o:["Nur der Schulträger schließt Reiseverträge","Die Schulleitung schließt sie mit Wirkung für das Land und kann Lehrkräfte damit beauftragen","Jede Lehrkraft darf das ohne Weiteres","Nur die Eltern als Vertragspartner"],
-  a:1, e:"Verträge für Schulfahrten schließt die Schulleitung mit Wirkung für und gegen das Land. Sie kann andere Lehrkräfte beauftragen.",
-  r:"§ 101 Abs. 9 SchulG M-V"},
- {t:"Leitung & Verwaltung", u:SCHULG("101"), l:"§ 101 SchulG", s:"Für ein neues Konzept zum Umgang mit KI in Klausuren sollen alle Lehrkräfte der Oberstufe eine schulinterne Fortbildung besuchen. Ein Kollege lehnt ab.",
-  q:"Welche Befugnis hat die Schulleitung?",
-  o:["Keine, Fortbildung ist freiwillig","Sie kann zu Fortbildungen verpflichten, die für Qualität und Organisation der Schule notwendig sind","Nur die Schulbehörde kann verpflichten","Nur mit Zustimmung des Personalrats im Einzelfall"],
-  a:1, e:"Die Schulleitung fördert die Fortbildung und kann Lehrkräfte erforderlichenfalls zu Fortbildungen verpflichten, die für die Entwicklung von Qualität und Organisation der Schule notwendig sind.",
-  r:"§ 101 Abs. 4 Satz 2 Nr. 4 SchulG M-V"},
- {t:"Leitung & Verwaltung", u:SCHULG("55"), l:"§ 55 SchulG", s:"Ein Vater verlangt eine Kopie der Physikklausur seiner Tochter aus Q1 und Einsicht in die privaten Notizen der Lehrkraft zum Sozialverhalten.",
-  q:"Wie ist zu entscheiden?",
-  o:["Beides gewähren","Beides ablehnen","Kopie der Klausur ja; persönliche Notizen, die nicht Teil der Schülerakte sind, nein","Nur Einsicht vor Ort, keine Kopie"],
-  a:2, e:"Erziehungsberechtigte dürfen Akten mit Daten über ihr Kind einsehen; Kopien von Klassen- oder Prüfungsarbeiten sind auf Wunsch zu ermöglichen. Persönliche Notizen der Lehrkraft außerhalb der Schülerakte sind ausgenommen.",
-  r:"§ 55 Abs. 4 SchulG M-V"},
- {t:"Leitung & Verwaltung", u:SCHULG("101"), l:"§ 101 SchulG", s:"Ein Vater betritt wiederholt ohne Anmeldung Unterrichtsräume und stört.",
-  q:"Wer übt das Hausrecht aus?",
-  o:["Der Hausmeister","Die Schulleitung, sie übt das Hausrecht des Schulträgers aus","Nur der Schulträger selbst","Jede Lehrkraft aus eigenem Recht"],
-  a:1, e:"Die Schulleitung übt das Hausrecht des Schulträgers aus und sorgt für die Ordnung in der Schule.",
-  r:"§ 101 Abs. 3, Abs. 5 Nr. 3 SchulG M-V"},
- {t:"Abitur & Prüfungsrecht", u:SCHULG("67"), l:"§ 67 SchulG", s:"Während der schriftlichen Abiturprüfung stört ein Prüfling trotz Ermahnung so massiv, dass die anderen nicht mehr ordnungsgemäß arbeiten können.",
-  q:"Welche Möglichkeit sieht das Gesetz vor?",
-  o:["Nur einen Vermerk im Protokoll","Ausschluss von der weiteren Prüfung; die Prüfung ist dann für nicht bestanden zu erklären","Eine Ordnungsmaßnahme nach der Prüfung, das Ergebnis bleibt bestehen","Die Prüfung wird für alle Prüflinge abgebrochen"],
-  a:1, e:"Behindert ein Prüfling die Prüfung so schwerwiegend, dass seine oder die Prüfung anderer nicht ordnungsgemäß möglich ist, kann er von der weiteren Prüfung ausgeschlossen werden. Die Prüfung ist dann für nicht bestanden zu erklären.",
-  r:"§ 67 Abs. 3 Satz 3 und 4 SchulG M-V"},
- {t:"Verwaltungsvorschriften", u:LBV, l:"LeistBewVO M-V", s:"Bei einer Mathematikarbeit in Klasse 8 haben 16 von 27 Schülern eine Note schlechter als ausreichend. Die Kollegin will die Noten so eintragen.",
-  q:"Was ist vorgeschrieben?",
-  o:["Nichts, die Lehrkraft entscheidet allein","Das Ergebnis ist der Schulleitung unverzüglich anzuzeigen; die Schulleitung entscheidet nach Abwägung aller Umstände, ob gewertet oder wiederholt wird","Die Arbeit muss automatisch wiederholt werden","Die Fachkonferenz stimmt über die Wertung ab"],
-  a:1, e:"Mehr als die Hälfte unter ausreichend löst die Anzeigepflicht gegenüber der Schulleitung aus. Diese entscheidet nach Abwägung der Umstände, ob die Arbeit gewertet oder wiederholt wird.",
-  r:"§ 5 Abs. 9 LeistBewVO M-V (in Kraft seit 01.08.2026)"},
- {t:"Verwaltungsvorschriften", u:LBV, l:"LeistBewVO M-V", s:"Eltern der 7a beschweren sich: In einer Woche wurden drei Klassenarbeiten geschrieben, eine davon am Vortag angekündigt.",
-  q:"Welche Regeln gelten?",
-  o:["Keine verbindlichen Vorgaben","Ankündigung mindestens fünf Unterrichtstage vorher; möglichst nur eine Arbeit pro Tag und nicht mehr als zwei pro Woche","Ankündigung eine Woche vorher, beliebig viele pro Woche","Höchstens eine Arbeit pro Woche"],
-  a:1, e:"Klassenarbeiten sind mindestens fünf Unterrichtstage zuvor anzukündigen. An einem Tag soll nur eine, in einer Woche sollen nicht mehr als zwei geschrieben werden. Als Schulleitung sorgen Sie für Abstimmung, etwa über einen Klassenarbeitsplan.",
-  r:"§ 5 Abs. 2 LeistBewVO M-V"},
- {t:"Verwaltungsvorschriften", u:LBV, l:"LeistBewVO M-V", s:"Ein Vater klagt, dass die Englischarbeit seines Sohnes (Klasse 9) nach vier Wochen noch nicht zurückgegeben wurde.",
-  q:"Was gilt?",
-  o:["Eine Frist gibt es nicht","Außerhalb der Grundschule sollen Arbeiten in der Regel spätestens nach zwei Wochen korrigiert zurückgegeben werden","Rückgabe spätestens zum Halbjahreszeugnis","Drei Wochen sind die Regel"],
-  a:1, e:"Klassenarbeiten sollen in der Regel im Primarbereich nach einer Woche, im übrigen Geltungsbereich spätestens nach zwei Wochen korrigiert zurückgegeben werden. Ein Gespräch mit der Lehrkraft ist der nächste Schritt.",
-  r:"§ 5 Abs. 10 LeistBewVO M-V"},
- {t:"Verwaltungsvorschriften", u:LBV, l:"LeistBewVO M-V", s:"Bei der Zeugniskonferenz Klasse 8 fragt ein Referendar, wie stark die Klassenarbeiten in Mathematik zählen.",
-  q:"Welcher Anteil gilt in Klasse 7 bis 9 am Gymnasium?",
-  o:["Ein Drittel in allen Fächern","50 Prozent in Deutsch, Mathematik und den Pflichtfremdsprachen, ein Drittel in den übrigen Fächern","Zwei Drittel in Kernfächern","Die Fachkonferenz legt den Anteil frei fest"],
-  a:1, e:"In den Jahrgangsstufen 7 bis 9 gehen Klassenarbeiten in Deutsch, Mathematik und den Pflichtfremdsprachen mit 50 Prozent ein, in den übrigen Fächern mit einem Drittel.",
-  r:"§ 14 Abs. 5 LeistBewVO M-V"},
- {t:"Verwaltungsvorschriften", u:LBV, l:"LeistBewVO M-V", s:"Eine Lehrkraft bildet die Note in Geschichte Klasse 7 überwiegend aus kontrollierten Hausaufgaben.",
-  q:"Ist das zulässig?",
-  o:["Ja, Hausaufgaben sind gleichwertige Leistungen","Nein; Hausaufgaben dürfen ab Jahrgangsstufe 4 nicht alleinige Grundlage einer Leistungsbewertung sein","Ja, wenn die Fachkonferenz zustimmt","Nur in Nebenfächern"],
-  a:1, e:"Hausaufgaben dürfen ab Jahrgangsstufe 4 nicht alleinige Grundlage für eine Leistungsbewertung sein. Die Schulleitung sollte auf eine breite Grundlage der Note hinwirken.",
-  r:"§ 12 Abs. 2 LeistBewVO M-V"},
- {t:"Aufsicht & Schulfahrten", u:SCHULG("61"), l:"§ 61 SchulG", s:"Nach der 6. Stunde warten Fahrschüler 40 Minuten auf dem Schulhof auf den Bus. Ein Kollege meint, nach Unterrichtsende sei die Schule nicht mehr zuständig.",
-  q:"Wie ist die Aufsichtspflicht geregelt?",
-  o:["Sie endet mit dem Unterrichtsende","Sie umfasst Schule und Schulgelände einschließlich der Zeit bis zum Beginn der Schülerbeförderung; geeignete pädagogische Mitarbeiter können damit betraut werden","Zuständig ist der Busunternehmer","Nur bei Schülern unter 14 Jahren"],
-  a:1, e:"Lehrkräfte beaufsichtigen in der Schule und auf dem Schulgelände, auch zwischen Unterrichtsende und Beginn der Schülerbeförderung, sowie bei Schulveranstaltungen außerhalb. Geeignete pädagogische Mitarbeiterinnen und Mitarbeiter können betraut werden. Die Schulleitung organisiert das über den Aufsichtsplan.",
-  r:"§ 61 SchulG M-V"},
- {t:"Aufsicht & Schulfahrten", u:VVF, l:"VV Schulfahrten", s:"Eine Klasse mit 28 Schülern plant eine dreitägige Fahrt. Die Klassenlehrerin will allein fahren und reicht den Antrag eine Woche vorher ein.",
-  q:"Was ist zu beanstanden?",
-  o:["Nichts","Für bis zu 30 Schüler braucht es neben der verantwortlichen Lehrkraft eine weitere Aufsichts- oder Begleitperson; der Antrag soll in der Regel spätestens zwei Wochen vorher bei der Schulleitung liegen","Nur der Antrag ist zu spät","Für 28 Schüler sind drei Lehrkräfte Pflicht"],
-  a:1, e:"Schulfahrten genehmigt die Schulleitung, der Antrag kommt in der Regel spätestens zwei Wochen vorher. Eine Lehrkraft ist verantwortliche Aufsichtsperson; bis zu 30 Schüler kommt eine weitere Person hinzu, darüber je 15 Schüler eine weitere.",
-  r:"VV Durchführung von Schulwanderungen und Schulfahrten M-V (2017, geändert 2024)"},
- {t:"Aufsicht & Schulfahrten", u:VVF, l:"VV Schulfahrten", s:"Auf der Studienfahrt nach Rügen wollen die Schüler am Nachmittag baden. Eine Gruppe schlägt einen Fluss in der Nähe vor.",
-  q:"Was ist zu beachten?",
-  o:["Baden ist auf Schulfahrten verboten","Wassersport ist möglich, wenn eine Aufsichts- oder Begleitperson eine gültige Rettungsschwimmerqualifikation hat; Fluss- und Kanalschwimmen sind verboten","Erlaubt, wenn alle Schüler schwimmen können","Volljährige dürfen überall ohne Aufsicht baden"],
-  a:1, e:"Wassersport ist grundsätzlich erlaubt, setzt aber eine Person mit gültiger Rettungsschwimmerqualifikation voraus. Fluss- und Kanalschwimmen sind ausdrücklich verboten.",
-  r:"VV Schulwanderungen und Schulfahrten M-V"},
- {t:"Aufsicht & Schulfahrten", u:VVF, l:"VV Schulfahrten", s:"Auf der Studienfahrt sollen Schüler der Klasse 11 einen Nachmittag in kleinen Gruppen frei durch die Stadt gehen. Eine Mutter hat schriftlich widersprochen.",
-  q:"Wie ist zu entscheiden?",
-  o:["Ab Klasse 11 gibt es keine Einschränkung","Freizeit kann nach Alter, Disziplin und Reife gewährt werden; widersprechen die Eltern, nimmt dieses Kind nicht an der freien Zeit teil","Freizeit ist nur bei Volljährigkeit erlaubt","Die Mutter kann die Freizeit für alle untersagen"],
-  a:1, e:"Die Aufsicht auf Schulfahrten setzt eine Einverständniserklärung der Eltern voraus. Freizeit kann unter Berücksichtigung von Alter, Disziplin und Reife gewährt werden, die Eltern können dem für ihr Kind widersprechen.",
-  r:"VV Schulwanderungen und Schulfahrten M-V"},
- {t:"Dienstrecht", u:BEAMT("36"), l:"§ 36 BeamtStG", s:"Eine verbeamtete Lehrkraft hält Ihre Anweisung zur Notenbekanntgabe im Klassenchat für datenschutzrechtlich unzulässig.",
-  q:"Wie muss sie vorgehen?",
-  o:["Die Anweisung einfach nicht befolgen","Bedenken unverzüglich bei Ihnen als unmittelbarer Vorgesetzter geltend machen; halten Sie fest, kann sie sich an die nächsthöhere Vorgesetzte wenden","Direkt den Personalrat entscheiden lassen","Sie muss ohne Weiteres gehorchen"],
-  a:1, e:"Beamtinnen und Beamte tragen die Verantwortung für die Rechtmäßigkeit ihres Handelns. Bedenken sind unverzüglich beim unmittelbaren Vorgesetzten geltend zu machen (Remonstration), bei Bestätigung beim nächsthöheren. Wird die Anordnung dann bestätigt, ist sie auszuführen, sofern das Verhalten nicht strafbar oder ordnungswidrig ist oder die Menschenwürde verletzt; die Lehrkraft ist dann von der eigenen Verantwortung befreit. Als Schulleitung sollten Sie die Anweisung ohnehin prüfen.",
-  r:"§ 36 BeamtStG"},
- {t:"Dienstrecht", u:BEAMT("42"), l:"§ 42 BeamtStG", s:"Zum Abiball schenkt der Abiturjahrgang einer Kollegin einen Gutschein im Wert von 150 Euro für ein Wellnesshotel.",
-  q:"Darf sie das annehmen?",
-  o:["Ja, Geschenke nach dem Abitur sind unproblematisch","Nur mit Zustimmung des Dienstherrn; ohne Zustimmung ist die Annahme von Geschenken in Bezug auf das Amt verboten","Ja, wenn sie es in der Konferenz bekannt gibt","Ja, bis 200 Euro"],
-  a:1, e:"Beamtinnen und Beamte dürfen keine Geschenke oder Vorteile in Bezug auf ihr Amt annehmen; Ausnahmen bedürfen der Zustimmung des Dienstherrn. Wertgrenzen und Zustimmungsfiktionen für geringwertige Aufmerksamkeiten regelt das Land gesondert; im Zweifel vorher klären lassen.",
-  r:"§ 42 Abs. 1 BeamtStG"},
- {t:"Dienstrecht", u:PERS, l:"VV personalrechtl. Befugnisse", s:"Eine Lehrkraft beantragt eine Beurlaubung für einen Tag, um an der Hochzeit ihres Bruders im Ausland teilzunehmen.",
-  q:"Wer ist für Erholungsurlaub und Beurlaubungen der Lehrkräfte zuständig?",
-  o:["Ausschließlich das Staatliche Schulamt","Die Schulleitung, mit Ausnahme der Befugnisse nach § 28 TV-L (Sonderurlaub bei Tarifbeschäftigten)","Der Personalrat","Das Bildungsministerium"],
-  a:1, e:"Nach der Anordnung über personalrechtliche Befugnisse (geändert 2024) ist die Schulleitung für Anordnung und Genehmigung von Erholungsurlaub und Beurlaubungen zuständig, ausgenommen die Befugnisse nach § 28 TV-L.",
-  r:"Anordnung über die personalrechtlichen Befugnisse in der Schulaufsicht, Abschnitt III Nr. 1 (Änderung vom 20.06.2024)"},
- {t:"Dienstrecht", u:PERS, l:"VV Stundenkonten", s:"Ein Kollege möchte ein langfristiges Unterrichtsstundenkonto anlegen, um später ein Sabbat-Halbjahr zu nehmen. Er will fünf Stunden pro Woche zusätzlich ansparen.",
-  q:"Was ist an einem Gymnasium zulässig?",
-  o:["Bis zu sechs Stunden pro Woche","Mindestens eine, höchstens drei Lehrerwochenstunden; Anspar- und Ausgleichsphase zusammen sollen zehn Schuljahre nicht übersteigen; Ausgleich durch bezahlte Freistellung von mindestens einem Halbjahr","Beliebig viele Stunden, Auszahlung möglich","Stundenkonten gibt es nur an beruflichen Schulen"],
-  a:1, e:"An allgemein bildenden Schulen beträgt die Ansparung eine bis drei Lehrerwochenstunden (berufliche Schulen bis sechs). Anspar- und Ausgleichsphase sollen zusammen höchstens zehn Schuljahre dauern; ausgeglichen wird durch bezahlte Freistellung über mindestens ein Schulhalbjahr.",
-  r:"VV langfristige Unterrichtsstundenkonten M-V (03.07.2024)"}
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "In einer Mathematikklausur der Qualifikationsphase entdeckt die Aufsicht bei einer Schülerin ein Smartphone mit geöffnetem KI-Chat. Die Kollegin fragt Sie, was jetzt passiert.",
+  "q": "Wer entscheidet über die Folgen, und welche Möglichkeiten bestehen?",
+  "o": [
+   "Die Schulleitung entscheidet; bei nachgewiesener Täuschung ist die Klausur zwingend mit 0 Punkten zu bewerten",
+   "Die Prüfungskommission entscheidet, weil Klausuren der Qualifikationsphase in die Gesamtqualifikation eingehen",
+   "Die Lehrkraft entscheidet: Note ungenügend, Anordnung der Wiederholung oder Fortsetzung mit teilweiser oder ganzer Bewertung",
+   "Die Fachkonferenz entscheidet auf Antrag der Lehrkraft, damit die Bewertung im Fach einheitlich bleibt"
+  ],
+  "a": 2,
+  "e": "Bei Täuschung oder Täuschungsversuch in einer Leistungsermittlung der Oberstufe entscheidet die Lehrkraft zwischen drei Folgen: ungenügend, Wiederholung oder Fortsetzung mit (Teil-)Bewertung. Als Schulleitung beraten Sie und achten auf einheitliche Handhabung im Kollegium. Eine Ordnungsmaßnahme ist davon getrennt zu prüfen.",
+  "r": "§ 23 APVO M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "Ein Schüler aus Q1 erscheint zur angekündigten Physikklausur nicht und meldet sich auch danach nicht. Eine Entschuldigung liegt nicht vor.",
+  "q": "Wie wird die Klausur bewertet?",
+  "o": [
+   "Wer eine angekündigte Leistungsermittlung unentschuldigt versäumt, wird wie bei Leistungsverweigerung behandelt: ungenügend",
+   "Die Klausur ist zwingend nachzuschreiben, weil jede Kursnote auf einer Klausur beruhen muss",
+   "Die Kursnote wird ohne diese Klausur gebildet; das Fehlen wird nur im Zeugnis vermerkt",
+   "Die Lehrkraft muss zunächst schriftlich eine Entschuldigung anfordern und eine Frist von zwei Wochen setzen"
+  ],
+  "a": 0,
+  "e": "Wer eine angekündigte Leistungsermittlung unentschuldigt versäumt, wird wie bei Leistungsverweigerung behandelt; die Leistung gilt als ungenügend. Nur bei Gründen, die der Schüler nicht zu vertreten hat, ist Gelegenheit zum Nachholen oder zu einer komplexen Leistung zu geben.",
+  "r": "§ 23 APVO M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "Am Morgen der schriftlichen Abiturprüfung in Deutsch meldet sich eine Schülerin krank. Die Mutter kündigt ein Attest der Hausärztin an.",
+  "q": "Was ist rechtlich gefordert?",
+  "o": [
+   "Ein hausärztliches Attest genügt, wenn es innerhalb von drei Werktagen bei der Schulleitung eingeht",
+   "Die Fachlehrkraft legt nach Vorlage eines ärztlichen Attests einen Nachtermin mit neuer Aufgabe fest",
+   "Ohne Teilnahme am Haupttermin gilt die Prüfung in diesem Fach als nicht bestanden, ein Nachtermin entfällt",
+   "Gründe unverzüglich mitteilen und glaubhaft machen, bei Krankheit ein amtsärztliches Zeugnis; die Prüfungskommission regelt die Fortsetzung"
+  ],
+  "a": 3,
+  "e": "Bei Nichtteilnahme an einem Prüfungsteil sind die Gründe unverzüglich mitzuteilen und glaubhaft zu machen. Bei Krankheit verlangt die Verordnung ein amtsärztliches Zeugnis. Hat der Prüfling die Gründe nicht zu vertreten, regelt die Prüfungskommission die Fortsetzung der Abiturprüfung.",
+  "r": "§ 34 APVO M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/67",
+  "l": "§ 67 SchulG",
+  "s": "In der schriftlichen Abiturprüfung Biologie wird bei einem Prüfling ein beschriebener Spickzettel gefunden, den er nachweislich benutzt hat.",
+  "q": "Welche Rechtsfolge sieht das Schulgesetz vor?",
+  "o": [
+   "Nur die Biologieprüfung wird mit 0 Punkten bewertet; die übrigen Prüfungsleistungen bleiben bestehen",
+   "Die gesamte Prüfung ist für nicht bestanden zu erklären; nur in leichteren Fällen ist die betroffene Leistung zu wiederholen",
+   "Die Fachprüfungsleitung entscheidet wie bei einer Kursklausur zwischen ungenügend, Wiederholung und Fortsetzung",
+   "Die Biologieprüfung ist in jedem Fall am Nachtermin zu wiederholen; eine weitergehende Folge ist nicht vorgesehen"
+  ],
+  "a": 1,
+  "e": "Versucht ein Prüfling, das Ergebnis durch Täuschung zu beeinflussen, ist die gesamte Prüfung für nicht bestanden zu erklären. In leichteren Fällen ist die betroffene Prüfungsleistung zu wiederholen. Das ist strenger als die Regel für Kursklausuren.",
+  "r": "§ 67 Abs. 3 SchulG M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "Zur Vorbereitung des Abiturs wird die Prüfungskommission gebildet. Die Oberstufenkoordinatorin fragt, wer den Vorsitz hat und wie groß die Kommission ist.",
+  "q": "Was gilt?",
+  "o": [
+   "Vorsitz durch die Schulleitung, ihre Stellvertretung oder die Oberstufenkoordination; drei Mitglieder; die Behörde kann abweichend regeln",
+   "Vorsitz durch eine Vertreterin des Staatlichen Schulamtes; dazu Schulleitung und Oberstufenkoordination",
+   "Vorsitz durch die Schulleitung; Mitglieder sind alle Fachprüfungsleitungen der fünf Prüfungsfächer",
+   "Vorsitz durch die Oberstufenkoordination; je eine Lehrkraft und eine Elternvertretung als weitere Mitglieder"
+  ],
+  "a": 0,
+  "e": "Die Prüfungskommission besteht aus einem vorsitzenden und zwei weiteren Mitgliedern. Den Vorsitz führt die Schulleitung oder ihre Stellvertretung bzw. die Oberstufenkoordination, soweit die Schulbehörde nichts anderes regelt. Die Kommission legt den Ablauf fest, sichert die einheitliche Bewertung und entscheidet bei Verstößen.",
+  "r": "§ 27 APVO M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "Ein Schüler mit diagnostizierter Lese-Rechtschreib-Störung hatte im Unterricht der Q-Phase Nachteilsausgleich. Die Eltern fragen, wie das im Abitur läuft.",
+  "q": "Wie ist das Verfahren?",
+  "o": [
+   "Der im Unterricht gewährte Nachteilsausgleich gilt im Abitur automatisch weiter, ein Antrag ist nicht nötig",
+   "Antrag bis vier Wochen vor der ersten Prüfung bei der Fachlehrkraft; sie entscheidet fachbezogen",
+   "Antrag spätestens mit der Wahl der Prüfungsfächer beim Vorsitz der Prüfungskommission; Entscheidung in Abstimmung mit der Schulbehörde",
+   "Antrag beim Staatlichen Schulamt, das nach Vorlage eines Gutachtens allein über Art und Umfang entscheidet"
+  ],
+  "a": 2,
+  "e": "Der Antrag ist spätestens mit der Wahl der Prüfungsfächer beim vorsitzenden Mitglied der Prüfungskommission einzureichen. Es entscheidet in Abstimmung mit der Schulbehörde; bei vorübergehender Erkrankung allein. Voraussetzung ist ein Nachteilsausgleich bereits im Unterricht.",
+  "r": "§ 33 APVO M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "Für die mündlichen Abiturprüfungen planen Sie Räume und Personal. Ein neuer Kollege fragt nach Besetzung und Dauer.",
+  "q": "Was ist der Regelfall?",
+  "o": [
+   "Zwei Prüfende und eine Protokollkraft; Gruppenprüfung von 30 Minuten mit bis zu drei Prüflingen",
+   "Fachprüfungsleitung, Prüferin oder Prüfer und Protokoll; Einzelprüfung von in der Regel 20 Minuten in zwei Teilen",
+   "Die gesamte Prüfungskommission und die Fachlehrkraft; Einzelprüfung von 30 Minuten ohne Vorbereitungszeit",
+   "Prüferin oder Prüfer und Protokoll; Einzelprüfung von 15 Minuten, die bei Bedarf auf 25 Minuten verlängert wird"
+  ],
+  "a": 1,
+  "e": "Der Fachprüfungsausschuss für mündliche Prüfungen besteht in der Regel aus Fachprüfungsleitung, Prüferin oder Prüfer und Protokollführung. Die mündliche Prüfung ist eine Einzelprüfung, dauert in der Regel 20 Minuten und hat zwei Teile.",
+  "r": "§§ 28, 38 APVO M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "Eine Schülerin aus Q2 überlegt, sich nicht zur Abiturprüfung anzumelden, und hat keinen freiwilligen Rücktritt beantragt.",
+  "q": "Welche Folge hat das?",
+  "o": [
+   "Sie wiederholt automatisch das zweite Jahr der Qualifikationsphase und tritt im Folgejahr an",
+   "Sie kann die Anmeldung im nächsten Schuljahr ohne weitere Folgen nachholen",
+   "Ihr wird bei ausreichenden Leistungen der schulische Teil der Fachhochschulreife zuerkannt",
+   "Die Abiturprüfung gilt als nicht bestanden, wenn sie auch keinen freiwilligen Rücktritt beantragt"
+  ],
+  "a": 3,
+  "e": "Wer sich nicht zur Abiturprüfung meldet und keinen freiwilligen Rücktritt nach § 3 Abs. 4 beantragt, nicht zugelassen ist oder bis zum Prüfungsbeginn zurücktritt, hat die Abiturprüfung nicht bestanden. Eine frühzeitige Beratung zum freiwilligen Rücktritt ist deshalb wichtig.",
+  "r": "§ 29 i. V. m. § 3 Abs. 4 APVO M-V"
+ },
+ {
+  "t": "Ordnungsmaßnahmen",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/60a",
+  "l": "§ 60a SchulG",
+  "s": "Eine 18-jährige Schülerin aus Q2 hat eine Lehrkraft massiv beleidigt. Eine Ordnungsmaßnahme wird erwogen. Die Eltern verlangen, an der Anhörung teilzunehmen.",
+  "q": "Wer ist anzuhören?",
+  "o": [
+   "Nur die Schülerin; die Anhörung der Erziehungsberechtigten ist nur bei Minderjährigen vorgeschrieben",
+   "Schülerin und Eltern, weil sie noch die Schule besucht und die Eltern unterhaltspflichtig sind",
+   "Nur die Eltern, weil sie den Schulvertrag mit dem Land geschlossen haben",
+   "Niemand; bei Volljährigen genügt eine schriftliche Mitteilung der Entscheidung"
+  ],
+  "a": 0,
+  "e": "Vor jeder Ordnungsmaßnahme ist die betroffene Schülerin zu hören, bei Minderjährigen auch die Erziehungsberechtigten. Die Schülerin kann eine zur Schule gehörende Vertrauensperson als Beistand beteiligen.",
+  "r": "§ 60a Abs. 6 SchulG M-V"
+ },
+ {
+  "t": "Ordnungsmaßnahmen",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/60a",
+  "l": "§ 60a SchulG",
+  "s": "Ein Schüler der Klasse 9 stört trotz Gesprächen und schriftlichem Tadel den Unterricht erheblich. Sie erwägen einen Ausschluss für zwei Tage.",
+  "q": "Wer entscheidet?",
+  "o": [
+   "Die Klassenlehrkraft nach Rücksprache mit der Schulleitung",
+   "Die Teilkonferenz, weil jeder Ausschluss ein Konferenzbeschluss ist",
+   "Die Schulleiterin oder der Schulleiter",
+   "Das Staatliche Schulamt auf Antrag der Schule"
+  ],
+  "a": 2,
+  "e": "Ein Ausschluss bis zu drei Tagen ist der Schulleitung zugewiesen. Vorausgehen müssen in der Regel Erziehungsmaßnahmen nach § 60.",
+  "r": "§ 60a Abs. 1 Satz 3 Nr. 2 a SchulG M-V"
+ },
+ {
+  "t": "Ordnungsmaßnahmen",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/60a",
+  "l": "§ 60a SchulG",
+  "s": "Ein Schüler hat einen Mitschüler auf dem Schulhof wiederholt verletzt. Im Raum steht ein Ausschluss von drei Wochen. Die Schulkonferenz hat nichts Abweichendes beschlossen.",
+  "q": "Wer ist zuständig?",
+  "o": [
+   "Die Schulleitung allein, da sie für die Ordnung in der Schule sorgt",
+   "Die Schulkonferenz, weil sie über Ordnungsmaßnahmen beschließt",
+   "Das Staatliche Schulamt, weil der Ausschluss drei Tage übersteigt",
+   "Eine von der Lehrkräftekonferenz berufene Teilkonferenz"
+  ],
+  "a": 3,
+  "e": "Ausschlüsse über drei Tage bis zu drei Monaten sowie die Überweisung in eine Parallelklasse entscheidet die Teilkonferenz: Schulleitungsmitglied, Klassenlehrkraft, drei gewählte Lehrkräfte und eine Vertretung des Schülerrates. Die Schulkonferenz kann diese Zuständigkeit auf die Schulleitung übertragen.",
+  "r": "§ 60a Abs. 1 Satz 4 und 5, Abs. 2 SchulG M-V"
+ },
+ {
+  "t": "Ordnungsmaßnahmen",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/60a",
+  "l": "§ 60a SchulG",
+  "s": "Ein Schüler bedroht am Montag Mitschüler ernsthaft. Die Teilkonferenz kann frühestens am Donnerstag tagen.",
+  "q": "Was darf die Schulleitung sofort tun?",
+  "o": [
+   "Nichts; bis zum Beschluss der Teilkonferenz darf der Schüler nicht ausgeschlossen werden",
+   "Vorläufig ausschließen, wenn die Sicherheit es erfordert; Anhörung und Beschluss unverzüglich nachholen",
+   "Ihn bis zu drei Tagen ausschließen; ein vorläufiger Ausschluss darüber hinaus ist nicht vorgesehen",
+   "Ihn vorläufig ausschließen, sobald die Eltern zugestimmt haben; die Anhörung entfällt dann"
+  ],
+  "a": 1,
+  "e": "Kommt ein längerer Ausschluss oder eine schwerere Maßnahme in Betracht, kann die Schulleitung vorläufig ausschließen, wenn Schulbetrieb oder Sicherheit es erfordern. Anhörung und Beschluss sind unverzüglich nachzuholen. Der vorläufige Ausschluss soll eine Woche nicht übersteigen.",
+  "r": "§ 60a Abs. 7 SchulG M-V"
+ },
+ {
+  "t": "Ordnungsmaßnahmen",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/60a",
+  "l": "§ 60a SchulG",
+  "s": "Am Wochenende beleidigt eine Schülerin eine andere in einem privaten Gruppenchat. Am Montag fordern Eltern eine Ordnungsmaßnahme.",
+  "q": "Wann darf außerschulisches Verhalten berücksichtigt werden?",
+  "o": [
+   "Immer, wenn Schülerinnen und Schüler derselben Schule beteiligt sind",
+   "Nur wenn die Eltern der betroffenen Schülerin dies schriftlich beantragen",
+   "Nur wenn es den Unterrichts- oder Schulbetrieb unmittelbar stört",
+   "Nur wenn bereits eine Strafanzeige bei der Polizei vorliegt"
+  ],
+  "a": 2,
+  "e": "Maßgeblich ist das Verhalten innerhalb der Schule. Außerschulisches Verhalten zählt nur, wenn es den Schulbetrieb unmittelbar stört. Pädagogische Gespräche bleiben unabhängig davon möglich.",
+  "r": "§ 60a Abs. 5 Satz 4 SchulG M-V"
+ },
+ {
+  "t": "Ordnungsmaßnahmen",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/60a",
+  "l": "§ 60a SchulG",
+  "s": "Bei einem Schüler der Klasse 10 erwägen Sie perspektivisch die Überweisung an ein anderes Gymnasium.",
+  "q": "Was ist zu beachten?",
+  "o": [
+   "Die Schulbehörde entscheidet; die Maßnahme ist vorher anzudrohen, auch schon zusammen mit einem schriftlichen Tadel",
+   "Die Teilkonferenz entscheidet; eine Androhung ist nur bei Schülerinnen und Schülern unter 14 Jahren nötig",
+   "Die Schulleitung entscheidet im Einvernehmen mit der aufnehmenden Schule; eine Androhung ist nicht nötig",
+   "Die Schulbehörde entscheidet; die Überweisung setzt die schriftliche Zustimmung der Eltern voraus"
+  ],
+  "a": 0,
+  "e": "Die Überweisung an eine andere Schule mit gleichem Abschluss trifft die Schulbehörde. Sie setzt besonders schwerwiegende Störungen voraus und ist anzudrohen, außer der Zweck der Androhung ist nicht erreichbar.",
+  "r": "§ 60a Abs. 1 Satz 3 Nr. 3, Abs. 4, Abs. 5 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/101",
+  "l": "§ 101 SchulG",
+  "s": "Die Lehrkräftekonferenz beschließt, dass Klausuren der Qualifikationsphase nicht mehr an die Schüler zurückgegeben werden. Sie halten das für rechtswidrig.",
+  "q": "Was müssen Sie tun?",
+  "o": [
+   "Den Beschluss ausführen, weil die Schulleitung an Konferenzbeschlüsse gebunden ist",
+   "Unverzüglich und begründet beanstanden; ohne Abhilfe entscheidet die Schulbehörde",
+   "Den Beschluss der Schulkonferenz zur endgültigen Entscheidung vorlegen",
+   "Den Beschluss bis zur nächsten Sitzung aussetzen und neu abstimmen lassen"
+  ],
+  "a": 1,
+  "e": "Rechtswidrige Konferenzbeschlüsse muss die Schulleitung unverzüglich beanstanden. Die Beanstandung ist zu begründen und hat aufschiebende Wirkung. Ohne Abhilfe entscheidet die Schulbehörde. Inhaltlich steht der Beschluss auch im Konflikt mit dem Recht auf Kopien von Arbeiten nach § 55 Abs. 4.",
+  "r": "§ 101 Abs. 7, § 55 Abs. 4 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/76",
+  "l": "§ 76 SchulG",
+  "s": "Schülerrat und Elternrat wollen eine einheitliche Regel zur Handynutzung, auch für die Oberstufe.",
+  "q": "Welches Gremium entscheidet?",
+  "o": [
+   "Die Lehrkräftekonferenz, weil die Regel vor allem den Unterricht betrifft",
+   "Die Schulleitung per Dienstanweisung kraft ihres Hausrechts",
+   "Der Schulträger, weil es um die Nutzung des Schulgeländes geht",
+   "Die Schulkonferenz im Rahmen der Schulordnung"
+  ],
+  "a": 3,
+  "e": "Die Schulkonferenz entscheidet über die Schulordnung, ausdrücklich auch über Regeln zur Nutzung mobiler digitaler Endgeräte.",
+  "r": "§ 76 Abs. 8 Nr. 5 e SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/76",
+  "l": "§ 76 SchulG",
+  "s": "Ihr Gymnasium möchte ein besonderes Profilangebot einrichten, etwa eine MINT-Klasse.",
+  "q": "Welches Gremium ist zuständig?",
+  "o": [
+   "Die Schulkonferenz; bei finanziellen Folgen braucht es die Zustimmung des Schulträgers",
+   "Die Lehrkräftekonferenz, weil sie über die Unterrichtsorganisation beschließt",
+   "Die Schulleitung allein, mit Genehmigung des Staatlichen Schulamtes",
+   "Die Fachkonferenzen der beteiligten MINT-Fächer gemeinsam"
+  ],
+  "a": 0,
+  "e": "Die Schulkonferenz ist für Entscheidungen über besondere Angebote an Gymnasien nach § 19 zuständig. Angelegenheiten mit finanziellen Folgen für den Schulträger brauchen dessen Zustimmung.",
+  "r": "§ 76 Abs. 7 Nr. 6, Abs. 6 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/76",
+  "l": "§ 76 SchulG",
+  "s": "In der Schulkonferenz steht es bei einer Abstimmung unentschieden.",
+  "q": "Wie wird entschieden?",
+  "o": [
+   "Der Antrag gilt als abgelehnt",
+   "Es wird in der nächsten Sitzung erneut abgestimmt",
+   "Das Votum der Schulleitung entscheidet",
+   "Die vorsitzende Person der Schulkonferenz entscheidet"
+  ],
+  "a": 2,
+  "e": "Bei Stimmengleichheit führt das Votum der Schulleiterin oder des Schulleiters zur Entscheidung.",
+  "r": "§ 76 Abs. 1 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/76",
+  "l": "§ 76 SchulG",
+  "s": "Ihr Schulleiter geht in den Ruhestand, die Stelle wird neu besetzt.",
+  "q": "Welche Rolle hat die Schulkonferenz?",
+  "o": [
+   "Sie wählt aus den Bewerbungen die neue Schulleitung",
+   "Sie ist vor der Bestellung anzuhören",
+   "Sie muss der Bestellung zustimmen",
+   "Sie entsendet ein Mitglied in die Auswahlkommission"
+  ],
+  "a": 1,
+  "e": "Die Schulkonferenz ist vor der Bestellung anzuhören, mit dem Schulträger wird das Benehmen hergestellt. Die Auswahl trifft die Schulbehörde.",
+  "r": "§ 76 Abs. 10 Nr. 1, § 101 Abs. 2 SchulG M-V"
+ },
+ {
+  "t": "Leitung & Verwaltung",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/101",
+  "l": "§ 101 SchulG",
+  "s": "Die Studienfahrt des 11. Jahrgangs wird geplant. Der Tutor fragt, ob er den Reisevertrag unterschreiben darf.",
+  "q": "Wie ist die Rechtslage?",
+  "o": [
+   "Der Schulträger schließt Reiseverträge, weil er die Kosten der Schule trägt",
+   "Die Schulleitung schließt sie für das Land und kann Lehrkräfte damit beauftragen",
+   "Die Eltern schließen sie selbst; die Schule vermittelt nur den Kontakt",
+   "Jede Lehrkraft, die eine Fahrt leitet, schließt sie in eigenem Namen"
+  ],
+  "a": 1,
+  "e": "Verträge für Schulfahrten schließt die Schulleitung mit Wirkung für und gegen das Land. Sie kann andere Lehrkräfte beauftragen.",
+  "r": "§ 101 Abs. 9 SchulG M-V"
+ },
+ {
+  "t": "Leitung & Verwaltung",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/101",
+  "l": "§ 101 SchulG",
+  "s": "Für ein neues Konzept zum Umgang mit KI in Klausuren sollen alle Lehrkräfte der Oberstufe eine schulinterne Fortbildung besuchen. Ein Kollege lehnt ab.",
+  "q": "Welche Befugnis hat die Schulleitung?",
+  "o": [
+   "Keine; Fortbildung liegt in der Eigenverantwortung jeder Lehrkraft",
+   "Nur das Staatliche Schulamt kann zu einer Fortbildung verpflichten",
+   "Eine Verpflichtung ist nur mit Zustimmung des Personalrats im Einzelfall möglich",
+   "Sie kann zu Fortbildungen verpflichten, die für Qualität und Organisation der Schule notwendig sind"
+  ],
+  "a": 3,
+  "e": "Die Schulleitung fördert die Fortbildung und kann Lehrkräfte erforderlichenfalls zu Fortbildungen verpflichten, die für die Entwicklung von Qualität und Organisation der Schule notwendig sind.",
+  "r": "§ 101 Abs. 4 Satz 2 Nr. 4 SchulG M-V"
+ },
+ {
+  "t": "Leitung & Verwaltung",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/55",
+  "l": "§ 55 SchulG",
+  "s": "Ein Vater verlangt eine Kopie der Physikklausur seiner Tochter aus Q1 und Einsicht in die privaten Notizen der Lehrkraft zum Sozialverhalten.",
+  "q": "Wie ist zu entscheiden?",
+  "o": [
+   "Beides gewähren, weil Eltern alle Unterlagen über ihr Kind einsehen dürfen",
+   "Nur Einsicht in die Klausur vor Ort; Kopien sind nicht vorgesehen",
+   "Kopie der Klausur ja; persönliche Notizen außerhalb der Schülerakte nein",
+   "Beides ablehnen, weil die Schülerin der Oberstufe die Unterlagen selbst anfordern muss"
+  ],
+  "a": 2,
+  "e": "Erziehungsberechtigte dürfen Akten mit Daten über ihr Kind einsehen; Kopien von Klassen- oder Prüfungsarbeiten sind auf Wunsch zu ermöglichen. Persönliche Notizen der Lehrkraft außerhalb der Schülerakte sind ausgenommen.",
+  "r": "§ 55 Abs. 4 SchulG M-V"
+ },
+ {
+  "t": "Leitung & Verwaltung",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/101",
+  "l": "§ 101 SchulG",
+  "s": "Ein Vater betritt wiederholt ohne Anmeldung Unterrichtsräume und stört.",
+  "q": "Wer übt das Hausrecht aus?",
+  "o": [
+   "Der Schulträger selbst; die Schule muss ihn im Einzelfall einschalten",
+   "Die Schulleitung; sie übt das Hausrecht des Schulträgers aus",
+   "Jede Lehrkraft aus eigenem Recht, solange sie Aufsicht führt",
+   "Der Hausmeister als Beschäftigter des Schulträgers"
+  ],
+  "a": 1,
+  "e": "Die Schulleitung übt das Hausrecht des Schulträgers aus und sorgt für die Ordnung in der Schule.",
+  "r": "§ 101 Abs. 3, Abs. 5 Nr. 3 SchulG M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/67",
+  "l": "§ 67 SchulG",
+  "s": "Während der schriftlichen Abiturprüfung stört ein Prüfling trotz Ermahnung so massiv, dass die anderen nicht mehr ordnungsgemäß arbeiten können.",
+  "q": "Welche Möglichkeit sieht das Gesetz vor?",
+  "o": [
+   "Ausschluss von der weiteren Prüfung; die Prüfung ist dann für nicht bestanden zu erklären",
+   "Ausschluss für diesen Prüfungstag; das Fach wird am Nachtermin erneut geprüft",
+   "Vermerk im Protokoll; über Folgen entscheidet die Teilkonferenz nach der Prüfung",
+   "Abbruch der Prüfung für den ganzen Raum und Wiederholung am Nachtermin"
+  ],
+  "a": 0,
+  "e": "Behindert ein Prüfling die Prüfung so schwerwiegend, dass seine oder die Prüfung anderer nicht ordnungsgemäß möglich ist, kann er von der weiteren Prüfung ausgeschlossen werden. Die Prüfung ist dann für nicht bestanden zu erklären.",
+  "r": "§ 67 Abs. 3 Satz 3 und 4 SchulG M-V"
+ },
+ {
+  "t": "Leistungsbewertung & Versetzung",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1690073",
+  "l": "LeistBewVO M-V",
+  "s": "Bei einer Mathematikarbeit in Klasse 8 haben 16 von 27 Schülern eine Note schlechter als ausreichend. Die Kollegin will die Noten so eintragen.",
+  "q": "Was ist vorgeschrieben?",
+  "o": [
+   "Die Lehrkraft entscheidet allein, ob die Arbeit gewertet wird; sie dokumentiert nur die Gründe",
+   "Die Arbeit ist in diesem Fall stets zu wiederholen; die erste Fassung wird nicht gewertet",
+   "Anzeige an die Schulleitung, die nach Abwägung über Wertung oder Wiederholung entscheidet",
+   "Die Fachkonferenz entscheidet per Beschluss über die Wertung, die Schulleitung wird informiert"
+  ],
+  "a": 2,
+  "e": "Mehr als die Hälfte unter ausreichend löst die Anzeigepflicht gegenüber der Schulleitung aus. Diese entscheidet nach Abwägung der Umstände, ob die Arbeit gewertet oder wiederholt wird.",
+  "r": "§ 5 Abs. 9 LeistBewVO M-V (in Kraft seit 01.08.2026)"
+ },
+ {
+  "t": "Leistungsbewertung & Versetzung",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1690073",
+  "l": "LeistBewVO M-V",
+  "s": "Eltern der 7a beschweren sich: In einer Woche wurden drei Klassenarbeiten geschrieben, eine davon am Vortag angekündigt.",
+  "q": "Welche Regeln gelten?",
+  "o": [
+   "Ankündigung mindestens eine Woche vorher; höchstens drei Arbeiten pro Woche",
+   "Ankündigung mindestens fünf Unterrichtstage vorher; möglichst eine pro Tag, höchstens zwei pro Woche",
+   "Ankündigung mindestens drei Unterrichtstage vorher; höchstens eine Arbeit pro Woche",
+   "Ankündigung im Arbeitsplan zu Halbjahresbeginn; Verteilung regelt die Klassenkonferenz"
+  ],
+  "a": 1,
+  "e": "Klassenarbeiten sind mindestens fünf Unterrichtstage zuvor anzukündigen. An einem Tag soll nur eine, in einer Woche sollen nicht mehr als zwei geschrieben werden. Als Schulleitung sorgen Sie für Abstimmung, etwa über einen Klassenarbeitsplan.",
+  "r": "§ 5 Abs. 2 LeistBewVO M-V"
+ },
+ {
+  "t": "Leistungsbewertung & Versetzung",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1690073",
+  "l": "LeistBewVO M-V",
+  "s": "Ein Vater klagt, dass die Englischarbeit seines Sohnes (Klasse 9) nach vier Wochen noch nicht zurückgegeben wurde.",
+  "q": "Was gilt?",
+  "o": [
+   "In der Regel spätestens nach zwei Wochen",
+   "In der Regel spätestens nach drei Wochen",
+   "Spätestens vor der nächsten Klassenarbeit im Fach",
+   "Spätestens vier Wochen nach dem Schreiben"
+  ],
+  "a": 0,
+  "e": "Klassenarbeiten sollen in der Regel im Primarbereich nach einer Woche, im übrigen Geltungsbereich spätestens nach zwei Wochen korrigiert zurückgegeben werden. Ein Gespräch mit der Lehrkraft ist der nächste Schritt.",
+  "r": "§ 5 Abs. 10 LeistBewVO M-V"
+ },
+ {
+  "t": "Leistungsbewertung & Versetzung",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1690073",
+  "l": "LeistBewVO M-V",
+  "s": "Bei der Zeugniskonferenz Klasse 8 fragt ein Referendar, wie stark die Klassenarbeiten in Mathematik zählen.",
+  "q": "Welcher Anteil gilt in Klasse 7 bis 9 am Gymnasium?",
+  "o": [
+   "Ein Drittel in allen Fächern, um mündliche Leistungen zu stärken",
+   "40 Prozent in den Hauptfächern, 25 Prozent in den übrigen Fächern",
+   "Die Fachkonferenz legt den Anteil zwischen 30 und 60 Prozent fest",
+   "50 Prozent in Deutsch, Mathematik und Pflichtfremdsprachen, sonst ein Drittel"
+  ],
+  "a": 3,
+  "e": "In den Jahrgangsstufen 7 bis 9 gehen Klassenarbeiten in Deutsch, Mathematik und den Pflichtfremdsprachen mit 50 Prozent ein, in den übrigen Fächern mit einem Drittel.",
+  "r": "§ 14 Abs. 5 LeistBewVO M-V"
+ },
+ {
+  "t": "Leistungsbewertung & Versetzung",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1690073",
+  "l": "LeistBewVO M-V",
+  "s": "Eine Lehrkraft bildet die Note in Geschichte Klasse 7 überwiegend aus kontrollierten Hausaufgaben.",
+  "q": "Ist das zulässig?",
+  "o": [
+   "Ja, wenn die Hausaufgaben regelmäßig kontrolliert und dokumentiert werden",
+   "Nein; ab Jahrgangsstufe 4 dürfen Hausaufgaben nicht alleinige Grundlage sein",
+   "Ja, sofern die Fachkonferenz dieses Vorgehen beschlossen hat",
+   "Nein; Hausaufgaben dürfen überhaupt nicht in die Note eingehen"
+  ],
+  "a": 1,
+  "e": "Hausaufgaben dürfen ab Jahrgangsstufe 4 nicht alleinige Grundlage für eine Leistungsbewertung sein. Die Schulleitung sollte auf eine breite Grundlage der Note hinwirken.",
+  "r": "§ 12 Abs. 2 LeistBewVO M-V"
+ },
+ {
+  "t": "Aufsicht & Schulfahrten",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/61",
+  "l": "§ 61 SchulG",
+  "s": "Nach der 6. Stunde warten Fahrschüler 40 Minuten auf dem Schulhof auf den Bus. Ein Kollege meint, nach Unterrichtsende sei die Schule nicht mehr zuständig.",
+  "q": "Wie ist die Aufsichtspflicht geregelt?",
+  "o": [
+   "Sie endet mit dem Ende der letzten Unterrichtsstunde; danach sind die Eltern verantwortlich",
+   "Sie gilt nach Unterrichtsende nur für Schülerinnen und Schüler unter 14 Jahren",
+   "Sie gilt auf dem Schulgelände bis zum Beginn der Schülerbeförderung; geeignete pädagogische Mitarbeiter können sie übernehmen",
+   "Sie geht mit dem Betreten der Bushaltestelle auf das Busunternehmen über"
+  ],
+  "a": 2,
+  "e": "Lehrkräfte beaufsichtigen in der Schule und auf dem Schulgelände, auch zwischen Unterrichtsende und Beginn der Schülerbeförderung, sowie bei Schulveranstaltungen außerhalb. Geeignete pädagogische Mitarbeiterinnen und Mitarbeiter können betraut werden. Die Schulleitung organisiert das über den Aufsichtsplan.",
+  "r": "§ 61 SchulG M-V"
+ },
+ {
+  "t": "Aufsicht & Schulfahrten",
+  "u": "https://www.bildung-mv.de/export/sites/bildungsserver/.galleries/dokumente/schule/Klassenfahrten_Schulwanderungen_Verwaltungsvorschrift-mit-Textaenderungen.pdf",
+  "l": "VV Schulfahrten",
+  "s": "Eine Klasse mit 28 Schülern plant eine dreitägige Fahrt. Die Klassenlehrerin will allein fahren und reicht den Antrag eine Woche vorher ein.",
+  "q": "Was ist zu beanstanden?",
+  "o": [
+   "Nichts, bis 30 Schülerinnen und Schüler genügt eine Lehrkraft",
+   "Nur die Begleitung; der Antrag eine Woche vorher ist ausreichend",
+   "Nur der Antrag; er muss vier Wochen vorher beim Schulamt liegen",
+   "Es fehlt eine zweite Aufsichts- oder Begleitperson, und der Antrag kommt zu spät"
+  ],
+  "a": 3,
+  "e": "Schulfahrten genehmigt die Schulleitung, der Antrag kommt in der Regel spätestens zwei Wochen vorher. Eine Lehrkraft ist verantwortliche Aufsichtsperson; bis zu 30 Schüler kommt eine weitere Person hinzu, darüber je 15 Schüler eine weitere.",
+  "r": "VV Durchführung von Schulwanderungen und Schulfahrten M-V (2017, geändert 2024)"
+ },
+ {
+  "t": "Aufsicht & Schulfahrten",
+  "u": "https://www.bildung-mv.de/export/sites/bildungsserver/.galleries/dokumente/schule/Klassenfahrten_Schulwanderungen_Verwaltungsvorschrift-mit-Textaenderungen.pdf",
+  "l": "VV Schulfahrten",
+  "s": "Auf der Studienfahrt nach Rügen wollen die Schüler am Nachmittag baden. Eine Gruppe schlägt einen Fluss in der Nähe vor.",
+  "q": "Was ist zu beachten?",
+  "o": [
+   "Erlaubt mit einer Person mit gültiger Rettungsschwimmerqualifikation; Flussschwimmen ist verboten",
+   "Erlaubt, wenn alle Schüler ein Schwimmabzeichen haben und die Eltern zugestimmt haben",
+   "Erlaubt an jedem Gewässer, wenn eine Lehrkraft mit Erste-Hilfe-Kurs dabei ist",
+   "Nur an bewachten Badestellen; eine eigene Qualifikation der Begleitung ist nicht nötig"
+  ],
+  "a": 0,
+  "e": "Wassersport ist grundsätzlich erlaubt, setzt aber eine Person mit gültiger Rettungsschwimmerqualifikation voraus. Fluss- und Kanalschwimmen sind ausdrücklich verboten.",
+  "r": "VV Schulwanderungen und Schulfahrten M-V"
+ },
+ {
+  "t": "Aufsicht & Schulfahrten",
+  "u": "https://www.bildung-mv.de/export/sites/bildungsserver/.galleries/dokumente/schule/Klassenfahrten_Schulwanderungen_Verwaltungsvorschrift-mit-Textaenderungen.pdf",
+  "l": "VV Schulfahrten",
+  "s": "Auf der Studienfahrt sollen Schüler der Klasse 11 einen Nachmittag in kleinen Gruppen frei durch die Stadt gehen. Eine Mutter hat schriftlich widersprochen.",
+  "q": "Wie ist zu entscheiden?",
+  "o": [
+   "Ab Jahrgangsstufe 11 ist Freizeit ohne Aufsicht immer erlaubt; der Widerspruch ist unbeachtlich",
+   "Freizeit nach Alter, Disziplin und Reife möglich; widersprechen Eltern, gilt das für ihr Kind",
+   "Freizeit ohne Aufsicht ist nur für volljährige Schülerinnen und Schüler zulässig",
+   "Der Widerspruch einer Mutter untersagt die freie Zeit für die gesamte Gruppe"
+  ],
+  "a": 1,
+  "e": "Die Aufsicht auf Schulfahrten setzt eine Einverständniserklärung der Eltern voraus. Freizeit kann unter Berücksichtigung von Alter, Disziplin und Reife gewährt werden, die Eltern können dem für ihr Kind widersprechen.",
+  "r": "VV Schulwanderungen und Schulfahrten M-V"
+ },
+ {
+  "t": "Dienstrecht",
+  "u": "https://www.gesetze-im-internet.de/beamtstg/__36.html",
+  "l": "§ 36 BeamtStG",
+  "s": "Eine verbeamtete Lehrkraft hält Ihre Anweisung zur Notenbekanntgabe im Klassenchat für datenschutzrechtlich unzulässig.",
+  "q": "Wie muss sie vorgehen?",
+  "o": [
+   "Die Anweisung nicht befolgen und den Personalrat um eine Entscheidung bitten",
+   "Die Anweisung befolgen; Bedenken kann sie erst danach schriftlich vorbringen",
+   "Bedenken unverzüglich bei Ihnen geltend machen; bei Bestätigung beim nächsthöheren Vorgesetzten",
+   "Die Bedenken direkt beim Datenschutzbeauftragten des Landes anzeigen und abwarten"
+  ],
+  "a": 2,
+  "e": "Beamtinnen und Beamte tragen die Verantwortung für die Rechtmäßigkeit ihres Handelns. Bedenken sind unverzüglich beim unmittelbaren Vorgesetzten geltend zu machen (Remonstration), bei Bestätigung beim nächsthöheren. Wird die Anordnung dann bestätigt, ist sie auszuführen, sofern das Verhalten nicht strafbar oder ordnungswidrig ist oder die Menschenwürde verletzt; die Lehrkraft ist dann von der eigenen Verantwortung befreit. Als Schulleitung sollten Sie die Anweisung ohnehin prüfen.",
+  "r": "§ 36 BeamtStG"
+ },
+ {
+  "t": "Dienstrecht",
+  "u": "https://www.gesetze-im-internet.de/beamtstg/__42.html",
+  "l": "§ 42 BeamtStG",
+  "s": "Zum Abiball schenkt der Abiturjahrgang einer Kollegin einen Gutschein im Wert von 150 Euro für ein Wellnesshotel.",
+  "q": "Darf sie das annehmen?",
+  "o": [
+   "Nur mit Zustimmung des Dienstherrn; sonst ist die Annahme verboten",
+   "Ja, weil das Schulverhältnis mit dem Abitur bereits beendet ist",
+   "Ja, wenn sie den Gutschein in der Lehrkräftekonferenz offenlegt",
+   "Ja, wenn alle Tutorinnen und Tutoren gleichwertig beschenkt werden"
+  ],
+  "a": 0,
+  "e": "Beamtinnen und Beamte dürfen keine Geschenke oder Vorteile in Bezug auf ihr Amt annehmen; Ausnahmen bedürfen der Zustimmung des Dienstherrn. Wertgrenzen und Zustimmungsfiktionen für geringwertige Aufmerksamkeiten regelt das Land gesondert; im Zweifel vorher klären lassen.",
+  "r": "§ 42 Abs. 1 BeamtStG"
+ },
+ {
+  "t": "Dienstrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1671033",
+  "l": "VV personalrechtl. Befugnisse",
+  "s": "Eine Lehrkraft beantragt eine Beurlaubung für einen Tag, um an der Hochzeit ihres Bruders im Ausland teilzunehmen.",
+  "q": "Wer ist für Erholungsurlaub und Beurlaubungen der Lehrkräfte zuständig?",
+  "o": [
+   "Ausschließlich das Staatliche Schulamt auf Antrag über die Schulleitung",
+   "Das Bildungsministerium, weil die Lehrkräfte Landesbedienstete sind",
+   "Die Schulleitung, aber nur mit Zustimmung des örtlichen Personalrats",
+   "Die Schulleitung, ausgenommen die Befugnisse nach § 28 TV-L"
+  ],
+  "a": 3,
+  "e": "Nach der Anordnung über personalrechtliche Befugnisse (geändert 2024) ist die Schulleitung für Anordnung und Genehmigung von Erholungsurlaub und Beurlaubungen zuständig, ausgenommen die Befugnisse nach § 28 TV-L.",
+  "r": "Anordnung über die personalrechtlichen Befugnisse in der Schulaufsicht, Abschnitt III Nr. 1 (Änderung vom 20.06.2024)"
+ },
+ {
+  "t": "Dienstrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1671033",
+  "l": "VV Stundenkonten",
+  "s": "Ein Kollege möchte ein langfristiges Unterrichtsstundenkonto anlegen, um später ein Sabbat-Halbjahr zu nehmen. Er will fünf Stunden pro Woche zusätzlich ansparen.",
+  "q": "Was ist an einem Gymnasium zulässig?",
+  "o": [
+   "Eine bis sechs Wochenstunden; Ausgleich durch Freistellung oder Auszahlung",
+   "Eine bis drei Wochenstunden; insgesamt höchstens zehn Schuljahre; bezahlte Freistellung von mindestens einem Halbjahr",
+   "Zwei bis vier Wochenstunden; Ansparphase höchstens fünf Schuljahre; Freistellung mindestens ein Schuljahr",
+   "Beliebig viele Stunden; über den Ausgleich entscheidet die Schulleitung im Einzelfall"
+  ],
+  "a": 1,
+  "e": "An allgemein bildenden Schulen beträgt die Ansparung eine bis drei Lehrerwochenstunden (berufliche Schulen bis sechs). Anspar- und Ausgleichsphase sollen zusammen höchstens zehn Schuljahre dauern; ausgeglichen wird durch bezahlte Freistellung über mindestens ein Schulhalbjahr.",
+  "r": "VV langfristige Unterrichtsstundenkonten M-V (03.07.2024)"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "Ein Schüler hat das erste Jahr der Qualifikationsphase schon einmal wiederholt und fragt nach einem freiwilligen Rücktritt aus Q2.",
+  "q": "Was regelt die Verordnung zur Verweildauer?",
+  "o": [
+   "In der Regel drei Jahre, mindestens zwei und höchstens vier Jahre; ein freiwilliger Rücktritt ist einmalig zum Halbjahresende möglich",
+   "In der Regel drei Jahre, höchstens fünf Jahre; ein freiwilliger Rücktritt ist zu jedem Halbjahr möglich",
+   "Genau drei Jahre; Wiederholungen sind nur nach Nichtzulassung zur Abiturprüfung erlaubt",
+   "In der Regel drei Jahre; über die Höchstdauer entscheidet die Klassenkonferenz im Einzelfall"
+  ],
+  "a": 0,
+  "e": "Die Verweildauer beträgt in der Regel drei Jahre, mindestens zwei und höchstens vier. Ein freiwilliger Rücktritt um ein Schuljahr ist auf Antrag einmalig am Ende eines Schulhalbjahres möglich. Bei bereits einmal wiederholtem Jahr ist die Höchstdauer genau zu prüfen.",
+  "r": "§ 3 Abs. 1 und 4 APVO M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "Eltern beschweren sich, dass im Leistungskurs Englisch eine Klausur am Vortag angekündigt und nach fünf Wochen noch nicht zurückgegeben wurde.",
+  "q": "Welche Vorgaben gelten für Klausuren der Oberstufe?",
+  "o": [
+   "Ankündigung mindestens drei Unterrichtstage vorher; Rückgabe spätestens nach zwei Wochen",
+   "Ankündigung mindestens fünf Unterrichtstage vorher; Bewertung, Rückgabe und Auswertung spätestens nach drei Wochen",
+   "Ankündigung zu Beginn des Halbjahres im Kursplan; Rückgabe spätestens vor der nächsten Klausur",
+   "Ankündigung mindestens eine Woche vorher; Rückgabe spätestens nach vier Wochen"
+  ],
+  "a": 1,
+  "e": "Klausuren sind gleichmäßig zu verteilen und mindestens fünf Unterrichtstage vorher anzukündigen. Sie sollen spätestens nach drei Wochen bewertet, zurückgegeben und mit der Lerngruppe ausgewertet sein. In der Sekundarstufe I gilt dagegen eine Zwei-Wochen-Regel.",
+  "r": "§ 16 Abs. 3 APVO M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "Eine neue Kollegin plant für ihren Grundkurs Physik in Q1 nur eine 45-minütige Klausur pro Halbjahr.",
+  "q": "Was schreibt die Verordnung vor?",
+  "o": [
+   "Eine Klausur pro Halbjahr von mindestens 45 Minuten ist zulässig",
+   "Je nach Unterrichtslage eine oder zwei Klausuren pro Halbjahr von mindestens 90 Minuten",
+   "Zwei Klausuren pro Halbjahr von je 135 Minuten in allen Fächern",
+   "Klausuren sind nur in den Prüfungsfächern vorgeschrieben, die Dauer ist frei"
+  ],
+  "a": 1,
+  "e": "In der Qualifikationsphase werden in allen Fächern in jedem Halbjahr je nach Unterrichtslage eine oder zwei Klausuren von mindestens 90 Minuten geschrieben.",
+  "r": "§ 22 Abs. 1 APVO M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "Ein Prüfling fragt vor der mündlichen Abiturprüfung, wie viel Zeit er zur Vorbereitung bekommt.",
+  "q": "Was ist der Regelfall?",
+  "o": [
+   "10 Minuten Vorbereitung, 15 Minuten Prüfung",
+   "30 Minuten Vorbereitung, 30 Minuten Prüfung",
+   "20 Minuten Vorbereitung, 20 Minuten Prüfung",
+   "Keine Vorbereitung, 30 Minuten Prüfungsgespräch"
+  ],
+  "a": 2,
+  "e": "Die Vorbereitung auf die mündliche Prüfung dauert in der Regel 20 Minuten, die Prüfung selbst ebenfalls in der Regel 20 Minuten.",
+  "r": "§ 38 Abs. 1 und 5 APVO M-V"
+ },
+ {
+  "t": "Abitur & Prüfungsrecht",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1610365",
+  "l": "APVO M-V",
+  "s": "Eine Schülerin aus Q2 möchte jetzt noch eine Facharbeit schreiben, um eine Klausur zu ersetzen.",
+  "q": "Wann kann eine Facharbeit erstellt werden?",
+  "o": [
+   "Jederzeit in der Qualifikationsphase auf Antrag bei der Fachlehrkraft",
+   "Nur in der Einführungsphase als Vorbereitung auf die Qualifikationsphase",
+   "Im ersten Jahr der Qualifikationsphase",
+   "Nur im zweiten Jahr der Qualifikationsphase als Ersatz für die letzte Klausur"
+  ],
+  "a": 2,
+  "e": "Schülerinnen und Schüler können im ersten Jahr der Qualifikationsphase eine Facharbeit erstellen. Für Q2 ist das nicht mehr vorgesehen.",
+  "r": "§ 19 Abs. 1 APVO M-V"
+ },
+ {
+  "t": "Leistungsbewertung & Versetzung",
+  "u": "https://www.regierung-mv.de/serviceassistent/download?id=1690073",
+  "l": "LeistBewVO M-V",
+  "s": "Ein Schüler der 8a war am Tag der Mathearbeit nachweislich krank. Die Lehrkraft möchte die Note einfach ohne diese Arbeit bilden.",
+  "q": "Was gilt?",
+  "o": [
+   "Die Lehrkraft kann frei entscheiden, ob nachgeschrieben wird",
+   "Die Arbeit muss vom Schüler nachgeholt werden",
+   "Die Arbeit wird mit ungenügend bewertet, wenn kein Attest vorliegt",
+   "Nachschreiben ist nur auf Antrag der Eltern möglich"
+  ],
+  "a": 1,
+  "e": "Versäumt eine Schülerin oder ein Schüler eine Klassenarbeit aus einem nicht selbst zu vertretenden Grund, muss sie nachgeholt werden. Unentschuldigtes Fehlen wird dagegen als Leistungsverweigerung behandelt.",
+  "r": "§ 15 Abs. 2 und 3 LeistBewVO M-V"
+ },
+ {
+  "t": "Leistungsbewertung & Versetzung",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/62",
+  "l": "§ 62 SchulG",
+  "s": "Ein Vater fordert Sie als Schulleitung auf, die Physiknote seiner Tochter von 4 auf 3 anzuheben, weil die Lehrkraft zu streng sei.",
+  "q": "Wer ist für die Bewertung zuständig?",
+  "o": [
+   "Die Schulleitung, weil sie Vorgesetzte der Lehrkräfte ist",
+   "Die Klassenkonferenz durch Mehrheitsbeschluss",
+   "Die Fachkonferenz Physik auf Antrag der Eltern",
+   "Die Lehrkraft, für Einzelleistungen und Gesamtbewertung"
+  ],
+  "a": 3,
+  "e": "Für die Bewertung einzelner Leistungen und die Gesamtbewertung ist die Lehrerin oder der Lehrer zuständig. Die Schulleitung kann beraten und auf rechtmäßige Bewertung hinwirken, ersetzt die Note aber nicht nach eigenem Ermessen.",
+  "r": "§ 62 Abs. 3 SchulG M-V; vgl. § 101 Abs. 4 Nr. 2"
+ },
+ {
+  "t": "Leistungsbewertung & Versetzung",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/64",
+  "l": "§ 64 SchulG",
+  "s": "Eltern einer guten Schülerin aus Klasse 8 beantragen, dass sie Klasse 9 überspringt.",
+  "q": "Wie ist das Verfahren?",
+  "o": [
+   "Antrag der Eltern; Entscheidung der Schulleitung nach Gutachten",
+   "Antrag der Eltern; Zustimmung der Klassenkonferenz",
+   "Antrag der Eltern; Genehmigung durch das Staatliche Schulamt",
+   "Überspringen ist am Gymnasium nicht vorgesehen"
+  ],
+  "a": 1,
+  "e": "Auf Antrag der Erziehungsberechtigten oder der volljährigen Schülerin kann mit Zustimmung der Klassenkonferenz eine Jahrgangsstufe übersprungen oder freiwillig zurückgetreten werden.",
+  "r": "§ 64 Abs. 3 SchulG M-V"
+ },
+ {
+  "t": "Leistungsbewertung & Versetzung",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/64",
+  "l": "§ 64 SchulG",
+  "s": "Ein Schüler wurde in Klasse 8 und nun auch in Klasse 9 nicht versetzt.",
+  "q": "Was ist die Regelfolge?",
+  "o": [
+   "Er wiederholt Klasse 9 ein zweites Mal; danach entscheidet die Klassenkonferenz neu",
+   "Er wird auf Antrag der Eltern probeweise in Klasse 10 versetzt und nach einem Halbjahr überprüft",
+   "In der Regel gilt er im Bildungsgang als nicht hinreichend förderbar und muss die Schule verlassen",
+   "Die Schulkonferenz entscheidet auf Antrag der Klassenkonferenz über seinen weiteren Verbleib"
+  ],
+  "a": 2,
+  "e": "Nach zwei Nichtversetzungen in derselben oder in zwei aufeinanderfolgenden Jahrgangsstufen ist in der Regel davon auszugehen, dass der Schüler im Bildungsgang nicht hinreichend gefördert werden kann. Ausnahmen sind auf Antrag bei besonderen Umständen möglich.",
+  "r": "§ 64 Abs. 2 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/78",
+  "l": "§ 78 SchulG",
+  "s": "Zur Zeugniskonferenz der 9b erscheinen die beiden Klassenelternvertreter und die Klassensprecherin und wollen mitstimmen.",
+  "q": "Dürfen sie teilnehmen?",
+  "o": [
+   "Ja, sie sind ständige Mitglieder der Klassenkonferenz mit vollem Stimmrecht",
+   "Ja, aber bei Zeugnissen und Versetzungen nur mit beratender Stimme",
+   "Nur die Elternvertreter; Schülervertreter sind erst ab Klasse 11 Mitglied",
+   "Nein; bei Zeugnissen und Versetzungen besteht die Konferenz nur aus Lehrkräften"
+  ],
+  "a": 3,
+  "e": "Eltern- und Schülervertretungen gehören zwar grundsätzlich zur Klassenkonferenz. Entscheidet sie aber über Zeugnisse, Versetzungen, Förderplanung oder Schullaufbahnempfehlungen, besteht sie nur aus den Lehrkräften.",
+  "r": "§ 78 Abs. 2 und 5 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/78",
+  "l": "§ 78 SchulG",
+  "s": "In der Qualifikationsphase wird in Kursen unterrichtet. Eine Kollegin fragt, wer die Jahrgangskonferenz leitet.",
+  "q": "Wer führt den Vorsitz?",
+  "o": [
+   "Die Schulleitung bestellt den Vorsitz",
+   "Die dienstälteste Tutorin oder der dienstälteste Tutor",
+   "Die Oberstufenkoordination kraft Amtes",
+   "Die Konferenz wählt ihren Vorsitz selbst"
+  ],
+  "a": 0,
+  "e": "Bei Kursunterricht wird je Jahrgangsstufe eine Klassenkonferenz gebildet. Den Vorsitz dieser Jahrgangsstufenkonferenz bestellt die Schulleitung; in Klassen führt ihn die Klassenlehrkraft.",
+  "r": "§ 78 Abs. 1 und 3 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/79",
+  "l": "§ 79 SchulG",
+  "s": "Es soll ein neues Mathematikbuch für Klasse 7 eingeführt werden. Ein Kollege meint, das entscheide allein die Schulleitung.",
+  "q": "Welches Gremium ist zuständig?",
+  "o": [
+   "Die Schulleitung im Rahmen der Haushaltsmittel",
+   "Die Fachkonferenz Mathematik über die Auswahl der Lernmittel",
+   "Die Schulkonferenz, weil Eltern betroffen sind",
+   "Der Schulträger als Kostenträger"
+  ],
+  "a": 1,
+  "e": "Die Fachkonferenz entscheidet insbesondere über die Auswahl der Lehr- und Lernmittel ihres Faches. Grundsätzliche Fragen zu Schulbüchern und Lernmitteln kann auch die Lehrkräftekonferenz behandeln. Zu Fachkonferenzen sind je zwei Mitglieder des Schüler- und des Schulelternrates einzuladen.",
+  "r": "§ 79 Abs. 2 und 4; vgl. § 77 Abs. 3 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/79",
+  "l": "§ 79 SchulG",
+  "s": "Die Fachschaft Mathematik wählt ihren Vorsitz neu. Ein Kollege fragt nach Amtszeit und Gästen.",
+  "q": "Was gilt für die Fachkonferenz?",
+  "o": [
+   "Vorsitz durch die Schulleitung bestellt; Gäste nur auf Einladung der Schulleitung",
+   "Wahl des Vorsitzes für ein Schuljahr; Eltern und Schüler nehmen nicht teil",
+   "Wahl für zwei Schuljahre; je zwei Mitglieder des Schülerrates und des Schulelternrates sind einzuladen",
+   "Wahl für vier Schuljahre; ein Elternvertreter ist stimmberechtigtes Mitglied"
+  ],
+  "a": 2,
+  "e": "Jede Fachkonferenz wählt für zwei Schuljahre aus ihrer Mitte Vorsitz und Stellvertretung. Je zwei Mitglieder des Schülerrates und des Schulelternrates sind einzuladen. Mitglieder sind die Lehrkräfte mit Lehrbefähigung im Fach oder die es unterrichten.",
+  "r": "§ 79 Abs. 2 und 3 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/77",
+  "l": "§ 77 SchulG",
+  "s": "Sie planen die Grundsätze für die Vertretungsregelung im kommenden Schuljahr neu.",
+  "q": "Welches Gremium beschließt darüber?",
+  "o": [
+   "Die Schulkonferenz",
+   "Die Lehrkräftekonferenz",
+   "Der Personalrat",
+   "Die Schulleitung allein"
+  ],
+  "a": 1,
+  "e": "Die Lehrkräftekonferenz beschließt über Angelegenheiten, die überwiegend die Lehrkräfte betreffen, darunter Grundsätze für die Vertretung von Lehrkräften und die Unterrichtsorganisation. Sie wird von der Schulleitung geleitet.",
+  "r": "§ 77 Abs. 2 und 3 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/80",
+  "l": "§ 80 SchulG",
+  "s": "Der Schülerrat plant eine Aktion, die Ihnen inhaltlich nicht gefällt, aber gegen keine Vorschrift verstößt.",
+  "q": "Dürfen Sie eingreifen?",
+  "o": [
+   "Ja, weil die Schulleitung die Gesamtverantwortung für alle Aktivitäten an der Schule trägt",
+   "Ja, wenn die Lehrkräftekonferenz die Aktion mehrheitlich ablehnt und dies begründet",
+   "Nur soweit es zur Einhaltung von Vorschriften und Schulkonferenzbeschlüssen erforderlich ist",
+   "Nur mit Zustimmung des Schulelternrates, der die Interessen aller Eltern vertritt"
+  ],
+  "a": 2,
+  "e": "Die Schulleitung darf in die Arbeit der Schülervertretungen nur eingreifen, soweit es zur Einhaltung von Rechts- und Verwaltungsvorschriften und von Beschlüssen der Schulkonferenz erforderlich ist. Schülervertreter dürfen wegen ihres Amtes weder bevorzugt noch benachteiligt werden.",
+  "r": "§ 80 Abs. 6 und 7 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/80",
+  "l": "§ 80 SchulG",
+  "s": "Eine Lehrkraft verweigert dem Schülersprecher die Freistellung für eine Schülerratssitzung, weil eine Kursarbeit vorbereitet wird.",
+  "q": "Wie ist die Rechtslage?",
+  "o": [
+   "Schülervertreter sind in angemessenem Umfang für Vorbereitung und Teilnahme vom Unterricht freizustellen",
+   "Eine Freistellung ist nur außerhalb der Kernfächer möglich",
+   "Gremiensitzungen müssen grundsätzlich außerhalb der Unterrichtszeit stattfinden",
+   "Die Lehrkraft entscheidet frei, eine Freistellung ist nicht vorgesehen"
+  ],
+  "a": 0,
+  "e": "Schülervertreterinnen und -vertreter sind für die Vorbereitung und Teilnahme an Gremiensitzungen in angemessenem Umfang vom Unterricht freizustellen. Was angemessen ist, hängt auch von der Unterrichtssituation ab, etwa einer anstehenden Klausur.",
+  "r": "§ 80 Abs. 5 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/84",
+  "l": "§ 84 SchulG",
+  "s": "Eine Schülergruppe möchte sich wöchentlich in einem Klassenraum treffen. Der Hausmeister lehnt ab.",
+  "q": "Was gilt für Schülergruppen?",
+  "o": [
+   "Sie haben keinen Anspruch, Räume sind nur für Unterricht vorgesehen",
+   "Räume sollen zur Verfügung gestellt werden, wenn der Schulbetrieb nicht beeinträchtigt wird",
+   "Räume gibt es nur mit Zustimmung der Schulkonferenz",
+   "Räume müssen in jedem Fall bereitgestellt werden"
+  ],
+  "a": 1,
+  "e": "Schülerinnen und Schüler dürfen sich in der Schule in Schülergruppen betätigen. Räume sollen zur Verfügung gestellt werden, wenn der Schul- und Unterrichtsbetrieb nicht beeinträchtigt wird. Die Schulleitung kann die Betätigung einschränken, wenn der Bildungs- und Erziehungsauftrag es erfordert.",
+  "r": "§ 84 SchulG M-V"
+ },
+ {
+  "t": "Gremien",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/88",
+  "l": "§ 88 SchulG",
+  "s": "Der Vorstand des Schulelternrates bittet Sie, zur nächsten Sitzung zu kommen und über die Unterrichtsversorgung zu berichten.",
+  "q": "Wozu sind Sie verpflichtet?",
+  "o": [
+   "Zu nichts; ob Sie teilnehmen oder berichten, liegt im Ermessen der Schulleitung",
+   "Nur zu einer schriftlichen Stellungnahme, eine Sitzungsteilnahme ist nicht vorgesehen",
+   "Über grundsätzliche Fragen informieren, Auskunft geben und auf Verlangen teilnehmen",
+   "Zur Teilnahme nur, wenn das Staatliche Schulamt vorher zugestimmt hat"
+  ],
+  "a": 2,
+  "e": "Die Schulleitung muss den Schulelternrat über grundsätzliche Fragen informieren und Auskünfte erteilen. Auf Verlangen nehmen Schulleitung und Lehrkräfte an den Sitzungen teil.",
+  "r": "§ 88 Abs. 4 SchulG M-V"
+ },
+ {
+  "t": "Eltern & Schulpflicht",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/8",
+  "l": "§ 8 SchulG",
+  "s": "Ein 14-jähriger Schüler meldet sich ohne Wissen der Eltern vom Religionsunterricht ab. Die Eltern protestieren.",
+  "q": "Wer entscheidet über die Teilnahme?",
+  "o": [
+   "Ab 14 Jahren der Schüler selbst; er erhält dann Unterricht in Philosophieren mit Kindern",
+   "Bis zur Volljährigkeit allein die Eltern; eine Abmeldung des Schülers ist unwirksam",
+   "Eltern und Schüler gemeinsam; bei Uneinigkeit entscheidet die Schulleitung",
+   "Ab 16 Jahren der Schüler selbst, vorher die Eltern mit schriftlicher Erklärung"
+  ],
+  "a": 0,
+  "e": "Die Erziehungsberechtigten, nach Vollendung des 14. Lebensjahres die Schülerinnen und Schüler selbst, entscheiden über die Teilnahme. Wer abgemeldet ist, erhält im Sekundarbereich I Unterricht in Philosophieren mit Kindern, im Sekundarbereich II in Philosophie.",
+  "r": "§ 8 Abs. 2 SchulG M-V"
+ },
+ {
+  "t": "Eltern & Schulpflicht",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/6",
+  "l": "§ 6 SchulG",
+  "s": "Eltern der 7c erfahren erst nachträglich, dass im Biologieunterricht eine Einheit zur Sexualerziehung stattgefunden hat.",
+  "q": "Welche Pflicht besteht gegenüber den Eltern?",
+  "o": [
+   "Die Eltern müssen vorher schriftlich zustimmen, sonst darf die Einheit nicht stattfinden",
+   "Keine besondere Pflicht, weil Sexualerziehung im Rahmenplan verbindlich festgelegt ist",
+   "Die Eltern können ihr Kind nach rechtzeitiger Information von der Einheit abmelden",
+   "Ziel, Inhalt, Formen und Materialien rechtzeitig mitteilen und mit ihnen besprechen"
+  ],
+  "a": 3,
+  "e": "Ziel, Inhalt und Formen der Sexualerziehung sowie die verwendeten Lehr- und Lernmittel sind den Erziehungsberechtigten rechtzeitig mitzuteilen und mit ihnen zu besprechen. Ein Zustimmungs- oder Abmelderecht sieht § 6 nicht vor.",
+  "r": "§ 6 SchulG M-V"
+ },
+ {
+  "t": "Eltern & Schulpflicht",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/49",
+  "l": "§ 49 SchulG",
+  "s": "Ein Schüler erscheint seit Wochen ohne Arbeitsmaterialien. Die Eltern sagen, das sei Sache der Schule.",
+  "q": "Wer ist verpflichtet?",
+  "o": [
+   "Die Schule muss alle Arbeitsmaterialien aus ihrem Budget kostenlos stellen",
+   "Die Eltern müssen das Kind zweckentsprechend ausstatten",
+   "Der Schulträger muss Materialien auf Antrag der Klassenlehrkraft bereitstellen",
+   "Ab Klasse 7 ist der Schüler allein verantwortlich, die Eltern nur bis Klasse 6"
+  ],
+  "a": 1,
+  "e": "Die Erziehungsberechtigten sind verpflichtet, ihr Kind zweckentsprechend auszustatten und für die Einhaltung der Schulpflicht zu sorgen. Sie unterrichten die Schule zudem über besondere Umstände, die die schulische Entwicklung beeinflussen.",
+  "r": "§ 49 Abs. 1 und 3 SchulG M-V"
+ },
+ {
+  "t": "Eltern & Schulpflicht",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/50",
+  "l": "§ 50 SchulG",
+  "s": "Eine Schülerin aus Klasse 8 fehlt seit Monaten unentschuldigt. Gespräche und Mahnungen blieben erfolglos.",
+  "q": "Welche Zwangsmaßnahme sieht das Gesetz vor?",
+  "o": [
+   "Die Schulleitung kann die Schülerin nach vorheriger Ankündigung von der Polizei abholen lassen",
+   "Die Schule kann die Schülerin nach zwei schriftlichen Mahnungen vom Schulbesuch ausschließen",
+   "Zuführung auf Anordnung der Schulbehörde, wenn andere Mittel erfolglos oder aussichtslos sind",
+   "Zwangsmittel sind gegenüber Minderjährigen nicht zulässig; möglich ist nur ein Bußgeld"
+  ],
+  "a": 2,
+  "e": "Schulpflichtige, die die Schulpflicht nicht erfüllen, können zwangsweise zur Schule gebracht werden, wenn andere Mittel erfolglos geblieben oder nicht erfolgversprechend sind. Das ordnet die zuständige Schulbehörde an, nicht die Schule. Daneben kann die Schulpflichtverletzung als Ordnungswidrigkeit verfolgt werden.",
+  "r": "§ 50 SchulG M-V"
+ },
+ {
+  "t": "Eltern & Schulpflicht",
+  "u": "https://www.anwalt24.de/gesetze/schulg_m_v-1/41",
+  "l": "§ 41 SchulG",
+  "s": "Ein 16-jähriger Schüler hat nach Klasse 9 das Gymnasium verlassen und will nicht mehr zur Schule gehen.",
+  "q": "Ist er noch schulpflichtig?",
+  "o": [
+   "Nein, die Schulpflicht endet nach neun Schuljahren im Primar- und Sekundarbereich I",
+   "Nein, die Schulpflicht endet mit dem 16. Geburtstag, unabhängig von den Schuljahren",
+   "Ja, die Schulpflicht besteht in jedem Fall bis zur Vollendung des 18. Lebensjahres",
+   "Ja; es folgt mindestens ein Jahr im Sekundarbereich II oder die Berufsschulpflicht"
+  ],
+  "a": 3,
+  "e": "Die Schulpflicht umfasst neun Schuljahre im Primar- und Sekundarbereich I sowie den anschließenden Besuch im Sekundarbereich II für mindestens ein Jahr oder die Berufsschulpflicht nach § 42.",
+  "r": "§ 41 Abs. 2 SchulG M-V"
+ }
 ];
 const TOPICS = ["Alle", ...new Set(CASES.map(c=>c.t))];
 const MISTAKES = "Meine Fehler";
