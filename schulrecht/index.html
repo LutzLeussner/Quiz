@@ -412,11 +412,12 @@ function render(){
     return;
   }
   const c=deck[i], keys="ABCD";
+  const ord = shuffle(c.o.map((_,k)=>k)); c._ord = ord;   // Antwortreihenfolge bei jedem Aufruf neu mischen
   st.innerHTML=`<section class="case" aria-live="polite">
     <div class="meta"><span>Fall <b>${String(i+1).padStart(2,"0")}</b></span><span>${c.t}</span>${lastBadge(c)}</div>
     <p class="sachverhalt">${c.s}</p>
     <p class="frage">${c.q}</p>
-    <div class="opts">${c.o.map((o,k)=>`<button class="opt" type="button" data-k="${k}"><span class="k">${keys[k]}</span><span>${o}</span></button>`).join("")}</div>
+    <div class="opts">${ord.map((orig,pos)=>`<button class="opt" type="button" data-k="${orig}"><span class="k">${keys[pos]}</span><span>${c.o[orig]}</span></button>`).join("")}</div>
     <div class="loesung" id="loes" hidden></div>
     <div class="nav"><button class="btn ghost" type="button" id="skip">Überspringen</button><button class="btn" type="button" id="next" disabled>Nächster Fall</button></div>
   </section>`;
@@ -426,9 +427,9 @@ function render(){
 }
 function pick(k){
   const c=deck[i], ok=k===c.a; answered++; if(ok) score++;
-  document.querySelectorAll(".opt").forEach((b,j)=>{b.disabled=true;if(j===c.a)b.classList.add("right");else if(j===k)b.classList.add("wrong")});
+  document.querySelectorAll(".opt").forEach(b=>{const j=+b.dataset.k;b.disabled=true;if(j===c.a)b.classList.add("right");else if(j===k)b.classList.add("wrong")});
   const l=$("#loes"); l.hidden=false;
-  l.innerHTML=`<div class="verdict ${ok?"ok":"no"}">${ok?"Richtig.":"Nicht ganz. Richtig ist "+"ABCD"[c.a]+"."}</div>
+  l.innerHTML=`<div class="verdict ${ok?"ok":"no"}">${ok?"Richtig.":"Nicht ganz. Richtig ist "+"ABCD"[c._ord.indexOf(c.a)]+"."}</div>
     <p>${c.e}</p><div class="norm">${c.r} · <a href="${c.u}" target="_blank" rel="noopener">Normtext ${c.l}</a></div>`;
   $("#skip").hidden=true; $("#next").disabled=false; $("#next").textContent=i===deck.length-1?"Auswertung":"Nächster Fall"; $("#next").focus();
   record(c, ok); updStats();
